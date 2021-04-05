@@ -172,9 +172,9 @@ public class UserService {
 			boolean do_update=false;
 			if(to_update.isPresent()){
 				User to_updated_user=to_update.get();
-				to_updated_user.setPhone(u.getPhone().toUpperCase());
+				to_updated_user.setPhone(u.getPhone());
 				to_updated_user.setAddress(u.getAddress());
-				to_updated_user.setName(u.getName());
+				to_updated_user.setName(u.getName().toUpperCase());
 		
 				UpdateRequest request=new UpdateRequest(to_updated_user.getUid());
 				if(to_updated_user.getGmail()!=u.getGmail()){
