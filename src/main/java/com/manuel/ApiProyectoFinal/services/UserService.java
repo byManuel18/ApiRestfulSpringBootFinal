@@ -182,7 +182,7 @@ public class UserService {
 					request.setEmail(u.getGmail());
 					do_update=true;
 				}
-				if(password!=null&&password.length()>0) {
+				if(password!=null&&password.length()>=6) {
 					request.setPassword(password);
 					do_update=true;
 				}
