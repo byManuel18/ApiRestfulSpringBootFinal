@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
@@ -67,8 +68,8 @@ public class UserController {
 	}
 	
 	
-	@PostMapping
-	public ResponseEntity<User> createUSer(@Valid @RequestBody User u,@Param("password") String password){
+	@PostMapping("/{password}")
+	public ResponseEntity<User> createUSer(@Valid @RequestBody User u,@PathVariable("password") String password){
 		User created= null;
 		created =this.userService.cretateUser(u,password);
 		return new ResponseEntity<User>(created,new HttpHeaders(), HttpStatus.OK);
@@ -99,8 +100,8 @@ public class UserController {
 		return new ResponseEntity<Boolean>(change,new HttpHeaders(),HttpStatus.OK);
 	}
 
-	@PutMapping()
-	public ResponseEntity<Boolean> updateUser(@Valid @RequestBody User u,@Param("password") String password){
+	@PutMapping("/{password}")
+	public ResponseEntity<Boolean> updateUser(@Valid @RequestBody User u,@PathVariable("password") String password){
 		boolean updated=this.userService.updateUser(u, password);
 		return new ResponseEntity<Boolean>(updated,new HttpHeaders(),HttpStatus.OK);
 	}
