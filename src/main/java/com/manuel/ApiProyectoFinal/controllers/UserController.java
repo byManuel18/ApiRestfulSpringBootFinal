@@ -23,15 +23,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.services.UserService;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*",allowedHeaders = "*", maxAge = 3600)
 public class UserController {
 	@Autowired
 	UserService userService;
