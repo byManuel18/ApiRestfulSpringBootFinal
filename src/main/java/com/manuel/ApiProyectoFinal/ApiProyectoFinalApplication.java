@@ -6,6 +6,9 @@ import java.io.IOException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -36,6 +39,17 @@ public class ApiProyectoFinalApplication {
 		}
 
 		SpringApplication.run(ApiProyectoFinalApplication.class, args);
+	}
+	
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/user/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+				registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+			}
+		};
 	}
 
 }
