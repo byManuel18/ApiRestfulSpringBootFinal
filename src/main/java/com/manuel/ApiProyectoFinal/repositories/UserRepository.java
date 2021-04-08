@@ -10,13 +10,13 @@ import com.manuel.ApiProyectoFinal.models.User;
 public interface UserRepository extends JpaRepository<User, String>{
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(name) LIKE LOWER(?1%)"
 			,nativeQuery = true)
-	Page<User> findByNameStartsWith(String name,Pageable pageable);
+	Page<User> findByNameUser(String name,Pageable pageable);
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(gmail) LIKE LOWER(?1%)"
 			,nativeQuery = true)
-	Page<User> findByGmailStartsWith(String gmail,Pageable pageable);
-	Page<User> findByPhoneStartsWith(String phone,Pageable pageable);
+	Page<User> findByGmailUser(String gmail,Pageable pageable);
+	Page<User> findByPhoneUser(String phone,Pageable pageable);
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(uid) LIKE LOWER(?1%)"
 			,nativeQuery = true)
-	Page<User> findByUidStartsWith(String uid,Pageable pageable);
+	Page<User> findByUidUser(String uid,Pageable pageable);
 
 }
