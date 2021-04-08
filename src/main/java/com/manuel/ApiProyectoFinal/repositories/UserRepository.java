@@ -13,7 +13,7 @@ public interface UserRepository extends JpaRepository<User, String>{
 	Page<User> findByGmailStartsWithIgnoreCase(String gmail,Pageable pageable);
 	Page<User> findByPhoneStartsWithIgnoreCase(String phone,Pageable pageable);
 	Page<User> findByUidStartsWithIgnoreCase(String uid,Pageable pageable);
-	@Query(value="SELECT COUNT(*)  FROM User_ WHERE gmail ='?1'",
+	@Query(value="SELECT COUNT(*)  FROM User_ WHERE gmail =?1",
 			nativeQuery = true)
 	int existEmail(String email);
 
