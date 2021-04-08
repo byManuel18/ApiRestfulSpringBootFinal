@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
+import com.manuel.ApiProyectoFinal.enums.SearchByUsers;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.services.UserService;
 
@@ -65,6 +66,59 @@ public class UserController {
 		}
 		
 		Page<User> pa=this.userService.getAllUser(p);
+		List<User> li=pa.getContent();
+		return new ResponseEntity<List<User>>(li,new HttpHeaders(),HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "*",maxAge = 3600)
+	@GetMapping("/getAllandSearch/{page}/{size}")
+	public ResponseEntity<List<User>> getAllUserByandOrder(@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,
+			@RequestParam(name="name",defaultValue ="") String name,@RequestParam(name="email",defaultValue ="") String email,@RequestParam(name="uid",defaultValue ="") String uid
+			,@RequestParam(name="phone",defaultValue ="") String phone){
+		Pageable p=null;
+		SearchByUsers search=SearchByUsers.name;
+		String characters="";
+		if(order==AscDesc.ASCENDING) {
+			if(!name.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("name").ascending());
+				characters=name;
+			}else if(!email.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("gmail").ascending());
+				search=SearchByUsers.email;
+				characters=email;
+			}else if(!phone.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("phone").ascending());
+				search=SearchByUsers.phone;
+				characters=phone;
+			}else if(!uid.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("uid").ascending());
+				search=SearchByUsers.uid;
+				characters=uid;
+			}else {
+				p=PageRequest.of(page,size,Sort.by("name").ascending());
+			}
+			
+		}else if(order==AscDesc.DESCENDING) {
+			if(!name.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("name").descending());
+				characters=name;
+			}else if(!email.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("gmail").descending());
+				search=SearchByUsers.email;
+				characters=email;
+			}else if(!phone.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("phone").descending());
+				search=SearchByUsers.phone;
+				characters=phone;
+			}else if(!uid.equals("")) {
+				p=PageRequest.of(page,size,Sort.by("uid").descending());
+				search=SearchByUsers.uid;
+				characters=uid;
+			}else {
+				p=PageRequest.of(page,size,Sort.by("name").descending());
+			}
+		}
+		Page<User> pa=this.userService.getAllUserWith(p,search,characters);
 		List<User> li=pa.getContent();
 		return new ResponseEntity<List<User>>(li,new HttpHeaders(),HttpStatus.OK);
 	}

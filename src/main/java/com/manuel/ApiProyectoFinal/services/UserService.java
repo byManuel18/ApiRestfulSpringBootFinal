@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
 import com.google.firebase.auth.UserRecord.UpdateRequest;
+import com.manuel.ApiProyectoFinal.enums.SearchByUsers;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.UserRepository;
 import java.io.IOException;
@@ -91,7 +92,33 @@ public class UserService {
 	public Page<User> getAllUser(Pageable pageable){
 		return this.userRepository.findAll(pageable);
 	}
-	
+	public Page<User> getAllUserWith(Pageable pageable,SearchByUsers sbU,String characters){
+		Page<User> page=null;
+		if(characters!=null&&!characters.equals("")) {
+			switch (sbU) {
+			case uid:
+				page=this.userRepository.findByUidStartsWith(characters, pageable);
+				break;
+			case email:
+				page=this.userRepository.findByGmailStartsWith(characters, pageable);
+				break;
+			case name:
+				page=this.userRepository.findByNameStartsWith(characters, pageable);
+				break;
+			case phone:
+				page=this.userRepository.findByPhoneStartsWith(characters, pageable);
+				break;
+			default:
+				page= this.userRepository.findAll(pageable);
+			}
+			return null;
+		}else {
+			page= this.userRepository.findAll(pageable);
+		}
+		
+		return page;
+		
+	}
 	@SuppressWarnings("unchecked")
 	public boolean deleteUser(String uid) {
 		boolean borrado=false;
