@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.manuel.ApiProyectoFinal.models.User;
 
 public interface UserRepository extends JpaRepository<User, String>{
-	@Query(value = "SELECT * FROM User_ WHERE LOWER(name) LIKE LOWER(?1%)"
+	@Query(value = "SELECT * FROM User_ WHERE name LIKE ?1%"
 			,nativeQuery = true)
 	Page<User> findByNameUser(String name,Pageable pageable);
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(gmail) LIKE LOWER(?1%)"
