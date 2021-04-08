@@ -106,7 +106,7 @@ public class UserService {
 				page=this.userRepository.findByNameUser(characters, pageable);
 				break;
 			case phone:
-				page=this.userRepository.findByPhoneUser(characters, pageable);
+				page=this.userRepository.findByPhoneStartsWith(characters, pageable);
 				break;
 			default:
 				page= this.userRepository.findAll(pageable);
