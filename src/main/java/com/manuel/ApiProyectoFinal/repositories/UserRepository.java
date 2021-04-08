@@ -14,7 +14,7 @@ public interface UserRepository extends JpaRepository<User, String>{
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(gmail) LIKE LOWER(?1%)"
 			,nativeQuery = true)
 	Page<User> findByGmailUser(String gmail,Pageable pageable);
-	Page<User> findByPhoneUser(String phone,Pageable pageable);
+	Page<User> findByPhoneStartsWith(String phone,Pageable pageable);
 	@Query(value = "SELECT * FROM User_ WHERE LOWER(uid) LIKE LOWER(?1%)"
 			,nativeQuery = true)
 	Page<User> findByUidUser(String uid,Pageable pageable);
