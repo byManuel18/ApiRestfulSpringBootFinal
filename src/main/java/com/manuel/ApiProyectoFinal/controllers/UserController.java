@@ -38,19 +38,13 @@ import com.manuel.ApiProyectoFinal.services.UserService;
 public class UserController {
 	@Autowired
 	UserService userService;
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getTotalPages/{size}")
 	public ResponseEntity<Integer> getTotalPages(@PathVariable("size") int size){
 		return new ResponseEntity<Integer>(this.userService.getTotalPages(size),new HttpHeaders(),HttpStatus.OK);
 	}
-	@CrossOrigin(origins = "*",maxAge = 3600)
-	@GetMapping("/getUserbyName/{page}/{size}/{name}")
-	public ResponseEntity<List<User>> getUserbyName(@PathVariable("page") int page,@PathVariable("size") int size, @PathVariable("name") String name){
-		Pageable p=PageRequest.of(page,size);
-		Page<User> pa=this.userService.findByName(name,p);
-		List<User> li=pa.getContent();
-		return new ResponseEntity<List<User>>(li,new HttpHeaders(),HttpStatus.OK);
-	}
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getAll/{page}/{size}")
 	public ResponseEntity<List<User>> getAllUser(@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
@@ -130,6 +124,7 @@ public class UserController {
 		created =this.userService.cretateUser(u,password);
 		return new ResponseEntity<User>(created,new HttpHeaders(), HttpStatus.OK);
 	}
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{uid}")
 	public ResponseEntity<Boolean> deleteUser(@PathVariable("uid") String uid){
@@ -143,23 +138,33 @@ public class UserController {
 		}
 		
 	}
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/activate/{uid}")
 	public ResponseEntity<Boolean> activateUser(@PathVariable("uid") String uid){
 		boolean change=this.userService.activateUser(uid);
 		return new ResponseEntity<Boolean>(change,new HttpHeaders(),HttpStatus.OK);
 	}
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/disable/{uid}")
 	public ResponseEntity<Boolean> disableUser(@PathVariable("uid") String uid){
 		boolean change=this.userService.disabledUser(uid);
 		return new ResponseEntity<Boolean>(change,new HttpHeaders(),HttpStatus.OK);
 	}
+	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/{password}")
 	public ResponseEntity<Boolean> updateUser(@Valid @RequestBody User u,@PathVariable("password") String password){
 		boolean updated=this.userService.updateUser(u, password);
 		return new ResponseEntity<Boolean>(updated,new HttpHeaders(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/exist/{email}")
+	public ResponseEntity<Boolean> existEmail(@PathVariable("email") String email){
+		boolean exist=this.userService.existEmail(email);
+		return new ResponseEntity<Boolean>(exist,new HttpHeaders(),HttpStatus.OK);
+		
 	}
 
 }

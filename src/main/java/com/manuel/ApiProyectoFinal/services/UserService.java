@@ -5,6 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.parser.Part.IgnoreCaseType;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -26,9 +30,20 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public boolean existEmail(String email) {
+		GenericPropertyMatcher gpm=GenericPropertyMatcher.of(null);
+		ExampleMatcher modelMatcher = ExampleMatcher.matching()
+				  .withIgnorePaths("uid") 
+				  .withMatcher("gmail",gpm);
+		User probe=new User();
+		probe.setGmail(email);
+		Example<User> example = Example.of(probe, modelMatcher);
+		return this.userRepository.exists(example);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public User cretateUser(User newUser,String password) {
-		//Poner errores si el id existe o el gmail existe
+		
 		User newUserAux=new User();
 		newUserAux.setAddress(newUser.getAddress());
 		newUserAux.setGmail(newUser.getGmail());
@@ -81,12 +96,6 @@ public class UserService {
 		//Poner errores si el size es menor a 1
 		Page<User> page=this.userRepository.findAll(PageRequest.of(0,sizePage));
 		return page.getTotalPages();
-	}
-	
-	public Page<User> findByName(String name,Pageable pageable){
-	
-		return this.userRepository.findByNameStartsWithIgnoreCase(name.toUpperCase(),pageable);
-		
 	}
 	
 	public Page<User> getAllUser(Pageable pageable){
