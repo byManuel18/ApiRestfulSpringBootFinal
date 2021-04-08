@@ -85,7 +85,7 @@ public class UserService {
 	
 	public Page<User> findByName(String name,Pageable pageable){
 	
-		return this.userRepository.findByNameUser(name.toUpperCase(),pageable);
+		return this.userRepository.findByNameStartsWithIgnoreCase(name.toUpperCase(),pageable);
 		
 	}
 	
@@ -97,19 +97,19 @@ public class UserService {
 		if(characters!=null&&!characters.equals("")) {
 			switch (sbU) {
 			case uid:
-				page=this.userRepository.findByUidUser(characters, pageable);
+				page=this.userRepository.findByUidStartsWithIgnoreCase(characters, pageable);
 				System.out.println("uid");
 				break;
 			case email:
-				page=this.userRepository.findByGmailUser(characters, pageable);
+				page=this.userRepository.findByGmailStartsWithIgnoreCase(characters, pageable);
 				System.out.println("email");
 				break;
 			case name:
-				page=this.userRepository.findByNameUser(characters, pageable);
+				page=this.userRepository.findByNameStartsWithIgnoreCase(characters, pageable);
 				System.out.println("name");
 				break;
 			case phone:
-				page=this.userRepository.findByPhoneStartsWith(characters, pageable);
+				page=this.userRepository.findByPhoneStartsWithIgnoreCase(characters, pageable);
 				System.out.println("phone");
 				break;
 			default:
