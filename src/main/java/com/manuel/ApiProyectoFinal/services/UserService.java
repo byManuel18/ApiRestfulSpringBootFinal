@@ -5,9 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.parser.Part.IgnoreCaseType;
+/*import org.springframework.data.repository.query.parser.Part.IgnoreCaseType;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher;*/
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,14 +31,19 @@ public class UserService {
 	UserRepository userRepository;
 	
 	public boolean existEmail(String email) {
-		GenericPropertyMatcher gpm=GenericPropertyMatcher.of(null);
+		/*GenericPropertyMatcher gpm=GenericPropertyMatcher.of(null);
 		ExampleMatcher modelMatcher = ExampleMatcher.matching()
 				  .withIgnorePaths("uid") 
 				  .withMatcher("gmail",gpm);
 		User probe=new User();
 		probe.setGmail(email);
-		Example<User> example = Example.of(probe, modelMatcher);
-		return this.userRepository.exists(example);
+		Example<User> example = Example.of(probe, modelMatcher);*/
+		int result=this.userRepository.existEmail(email);
+		if(result>0) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
