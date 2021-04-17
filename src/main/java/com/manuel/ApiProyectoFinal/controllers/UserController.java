@@ -45,25 +45,7 @@ public class UserController {
 		return new ResponseEntity<Integer>(this.userService.getTotalPages(size),new HttpHeaders(),HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins = "*",maxAge = 3600)
-	@GetMapping("/getAll/{page}/{size}")
-	public ResponseEntity<List<User>> getAllUser(@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
-		Pageable p=null;
-		if(order!=null) {
-			if(order==AscDesc.ASCENDING) {
-				p=PageRequest.of(page,size,Sort.by("name").ascending());
-			}else if(order==AscDesc.DESCENDING) {
-				p=PageRequest.of(page,size,Sort.by("name").descending());
-			}
-		}else {
-			p=PageRequest.of(page,size);
-		}
-		
-		Page<User> pa=this.userService.getAllUser(p);
-		List<User> li=pa.getContent();
-		return new ResponseEntity<List<User>>(li,new HttpHeaders(),HttpStatus.OK);
-	}
-	
+
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getAllandSearch/{page}/{size}")
 	public ResponseEntity<List<User>> getAllUserByandOrder(@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,
