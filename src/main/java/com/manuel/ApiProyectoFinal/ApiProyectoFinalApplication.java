@@ -20,7 +20,6 @@ import com.google.firebase.FirebaseOptions;
 public class ApiProyectoFinalApplication {
 
 	public static void main(String[] args) {
-		///ApiProyectoFinal/src/main/resources/firebaseConfig/proyectofinal-a16ca-firebase-adminsdk-vvbwe-621b2585d4.json
 		
 		FileInputStream serviceAccount;
 		try {
@@ -48,6 +47,7 @@ public class ApiProyectoFinalApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/user/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+				registry.addMapping("/signed/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 			}
 		};
 	}
