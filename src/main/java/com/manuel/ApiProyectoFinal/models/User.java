@@ -10,7 +10,6 @@ import javax.validation.constraints.NotBlank;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-//@JsonIgnoreProperties("listaDiscos")
 @Table(name="User_")
 public class User {
 	
