@@ -45,6 +45,12 @@ public class UserController {
 		return new ResponseEntity<Integer>(this.userService.getTotalPages(size),new HttpHeaders(),HttpStatus.OK);
 	}
 	
+	@CrossOrigin(origins = "*",maxAge = 3600)
+	@GetMapping("/{uid}")
+	public ResponseEntity<User> getUserByUid(@PathVariable("uid") String uid){
+		User selected=this.userService.getUserByUid(uid);
+		return new ResponseEntity<User>(selected,new HttpHeaders(),HttpStatus.OK);
+	}
 
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getAllandSearch/{page}/{size}")

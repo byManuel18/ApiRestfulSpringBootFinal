@@ -284,5 +284,14 @@ public class UserService {
 		return updated;
 	}
 	
+	public User getUserByUid(String uid) {
+		Optional<User> userselected=this.userRepository.findById(uid);
+		if(userselected.isPresent()) {
+			return userselected.get();
+		}else {
+			return null;
+		}
+	}
+	
 }
 	
