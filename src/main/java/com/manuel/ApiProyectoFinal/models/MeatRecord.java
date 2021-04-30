@@ -39,12 +39,12 @@ public class MeatRecord {
 	private String lote;
 	
 	@NotBlank
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
 	@NotBlank
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;
 	

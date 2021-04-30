@@ -15,9 +15,14 @@ public class MeatRecordService {
 	private MeatRecordRepository MeatRecordrepository;
 	
 	public MeatRecord createMeatRecord(MeatRecord newMeatRecord){
-		newMeatRecord.setProduct(newMeatRecord.getProduct().toUpperCase());
-		newMeatRecord.setSupplier(newMeatRecord.getSupplier().toUpperCase());
-		return this.MeatRecordrepository.save(newMeatRecord);
+		MeatRecord toadd=new MeatRecord();
+		toadd.setDate(newMeatRecord.getDate());
+		toadd.setLote(newMeatRecord.getLote());
+		toadd.setProduct(newMeatRecord.getProduct().toUpperCase());
+		toadd.setSigned(newMeatRecord.getSigned());
+		toadd.setSupplier(newMeatRecord.getSupplier().toUpperCase());
+		toadd.setUser(newMeatRecord.getUser());
+		return this.MeatRecordrepository.save(toadd);
 	}
 	
 	public boolean deleteMeatRecord(MeatRecord deleteMeatRecord) {
