@@ -25,11 +25,11 @@ public class MeatRecordService {
 		return this.MeatRecordrepository.save(toadd);
 	}
 	
-	public boolean deleteMeatRecord(MeatRecord deleteMeatRecord) {
+	public boolean deleteMeatRecord(Long id) {
 		
 		boolean deleted=false;
 		
-		Optional<MeatRecord> todeleted=this.MeatRecordrepository.findById(deleteMeatRecord.getId());
+		Optional<MeatRecord> todeleted=this.MeatRecordrepository.findById(id);
 		
 		if(todeleted.isPresent()) {
 			this.MeatRecordrepository.delete(todeleted.get());
