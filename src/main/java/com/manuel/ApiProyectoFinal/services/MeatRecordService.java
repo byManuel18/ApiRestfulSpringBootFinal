@@ -83,6 +83,35 @@ public class MeatRecordService {
 		}
 	}
 	
+	public Page<MeatRecord> getAllBy(String search, String uid,Pageable pageable,SearchByMeatRecord caseSearch){
+			
+			Optional<User> getuser=this.UserRepository.findById(uid);
+			if(getuser.isPresent()) {
+				Page<MeatRecord> page=null;
+				switch (caseSearch) {
+				case DATE:
+					Date date=Date.valueOf(search);
+					page=this.MeatRecordrepository.findByDateAndUser(date, getuser.get(), pageable);
+					break;
+				case LOTE:
+					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					break;
+				case PRODUCT:
+					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					break;
+				case SUPPLIER:
+					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					break;
+				default:
+					page=this.MeatRecordrepository.findByUser(getuser.get(), pageable);
+					break;
+				}
+				return page;
+			}else {
+				return null;
+			}
+		}
+	
 	
 	public Integer getPages(String uid,int size,String search,SearchByMeatRecord caseSearch) {
 	
@@ -92,24 +121,19 @@ public class MeatRecordService {
 			Page<MeatRecord> page=null;
 			switch (caseSearch) {
 			case DATE:
-				System.out.println("date");
 					Date date=Date.valueOf(search);
 					page=this.MeatRecordrepository.findByDateAndUser(date, user.get(), pageable);
 				break;
 			case LOTE:
-				System.out.println("lote");
 					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			case PRODUCT:
-				System.out.println("product");
 					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			case SUPPLIER:
-				System.out.println("supplier");
 					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			default:
-				System.out.println("all");
 					page=this.MeatRecordrepository.findByUser(user.get(), pageable);
 				break;
 			}

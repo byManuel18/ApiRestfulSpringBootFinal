@@ -56,7 +56,7 @@ public class MeatRecordController {
 		return new ResponseEntity<Boolean>(this.MeatRecordservice.deleteMeatRecord(id),new HttpHeaders(),HttpStatus.OK); 
 	}
 		
-	@CrossOrigin(origins = "*",maxAge = 3600)
+	/*@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
 	public ResponseEntity<List<MeatRecord>> getAllBy(@PathVariable("uid") String uid,@PathVariable("size") int size,@PathVariable("page") int page ,@RequestParam(name = "product", defaultValue = "") String product
 			,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
@@ -72,7 +72,7 @@ public class MeatRecordController {
 			lista.addAll(pageList.getContent());
 		}
 		return new ResponseEntity<List<MeatRecord>>(lista,new HttpHeaders(),HttpStatus.OK);
-	}
+	}*/
 	
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
@@ -98,6 +98,72 @@ public class MeatRecordController {
 		
 		Integer np=this.MeatRecordservice.getPages(uid, size, cadena,caseSearch);
 		return new ResponseEntity<Integer>(np,new HttpHeaders(),HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "*",maxAge = 3600)
+	@GetMapping("/getBy/{uid}/{page}/{size}")
+	public ResponseEntity<List<MeatRecord>> getAllBy(@PathVariable("uid") String uid,@PathVariable("size") int size,@PathVariable("page") int page ,@RequestParam(name = "product", defaultValue = "") String product
+			,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,@RequestParam(name = "supplier", defaultValue ="") String supplier,@RequestParam(name = "date", defaultValue ="") String date,
+			@RequestParam(name = "lote", defaultValue ="") String lote){
+		Pageable pageable=null;
+		SearchByMeatRecord caseSearch=SearchByMeatRecord.NO;
+		String cadena="";
+		List<MeatRecord> lista=new ArrayList<MeatRecord>();
+		Page<MeatRecord> pageList=null;
+		
+		if(order==AscDesc.ASCENDING) {
+			pageable=PageRequest.of(page, size,Sort.by("product").ascending());
+		}else {
+			pageable=PageRequest.of(page, size,Sort.by("product").descending());
+		}
+		
+		if(!lote.equals("")) {
+			cadena=lote;
+			caseSearch=SearchByMeatRecord.LOTE;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("lote").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("lote").descending());
+			}
+		}else if(!date.equals("")) {
+			cadena=date;
+			caseSearch=SearchByMeatRecord.DATE;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("date").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("date").descending());
+			}
+		}else if(!supplier.equals("")) {
+			cadena=supplier;
+			caseSearch=SearchByMeatRecord.SUPPLIER;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("supplier").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("supplier").descending());
+			}
+		}else if(!product.equals("")) {
+			cadena=product;
+			caseSearch=SearchByMeatRecord.PRODUCT;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("product").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("product").descending());
+			}
+		}else {
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("date").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("date").descending());
+			}
+		}
+		
+		pageList=this.MeatRecordservice.getAllBy(cadena, uid, pageable, caseSearch);
+			
+		
+		if(pageList!=null) {
+			lista.addAll(pageList.getContent());
+		}
+		return new ResponseEntity<List<MeatRecord>>(lista,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	
