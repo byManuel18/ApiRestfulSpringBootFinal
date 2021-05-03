@@ -84,24 +84,25 @@ public class MeatRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
-	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue = "") String product,
-			@RequestParam(name = "lote", defaultValue = "") String lote,@RequestParam(name = "supplier", defaultValue = "") String supplier,@RequestParam(name = "date", defaultValue = "") String date){
+	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue ="") String product,
+			@RequestParam(name = "lote", defaultValue ="") String lote,@RequestParam(name = "supplier", defaultValue ="") String supplier,@RequestParam(name = "date", defaultValue ="") String date){
 		
 		SearchByMeatRecord caseSearch=SearchByMeatRecord.NO;
 		String cadena="";
-		if(product!=null&&product!="") {
+		if(product!=""){
 			System.out.println(1);
+			System.out.println("->"+product+"<-");
 			cadena=product;
 			caseSearch=SearchByMeatRecord.PRODUCT;
-		}else if(lote!=null&&lote!="") {
+		}else if(lote!="") {
 			cadena=lote;
 			caseSearch=SearchByMeatRecord.LOTE;
 			System.out.println(2);
-		}else if(date!=null&&date!="") {
+		}else if(date!="") {
 			System.out.println(3);
 			cadena=date;
 			caseSearch=SearchByMeatRecord.DATE;
-		}else if(supplier!=null&&supplier!="") {
+		}else if(supplier!="") {
 			System.out.println(4);
 			cadena=supplier;
 			caseSearch=SearchByMeatRecord.SUPPLIER;
