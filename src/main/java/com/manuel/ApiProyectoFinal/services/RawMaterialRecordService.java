@@ -83,7 +83,7 @@ public class RawMaterialRecordService {
 				break;
 			case END_DATE:
 				date= Date.valueOf(search);
-				page=this.rawMaterialRecordRepository.findByEnd_dateAndUser(date, getUser.get(), pageable);
+				page=this.rawMaterialRecordRepository.findByEnddateAndUser(date, getUser.get(), pageable);
 				break;
 			case LOTE:
 				page=this.rawMaterialRecordRepository.findByLoteStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
@@ -125,7 +125,7 @@ public class RawMaterialRecordService {
 					break;
 				case END_DATE:
 					date= Date.valueOf(search);
-					page=this.rawMaterialRecordRepository.findByEnd_dateAndUser(date, getUser.get(), pageable);
+					page=this.rawMaterialRecordRepository.findByEnddateAndUser(date, getUser.get(), pageable);
 					break;
 				case LOTE:
 					page=this.rawMaterialRecordRepository.findByLoteStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);

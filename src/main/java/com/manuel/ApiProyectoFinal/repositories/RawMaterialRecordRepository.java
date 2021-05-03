@@ -15,6 +15,6 @@ public interface RawMaterialRecordRepository extends JpaRepository<RawMaterialRe
 	Page<RawMaterialRecord> findBySupplierStartsWithIgnoreCaseAndUser(String supplier,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByArrival_dateAndUser(Date arrival_date,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByStart_dateAndUser(Date start_date,User user,Pageable pageable);
-	Page<RawMaterialRecord> findByEnd_dateAndUser(Date end_date,User user,Pageable pageable);
+	Page<RawMaterialRecord> findByEnddateAndUser(Date enddate,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByUser(User user,Pageable pageable);
 }

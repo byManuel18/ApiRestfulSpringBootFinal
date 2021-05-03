@@ -43,7 +43,7 @@ public class RawMaterialRecord {
 	private Date start_date;
 	
 	@Column(name = "end_date",nullable = true)
-	private Date end_date;
+	private Date enddate;
 	
 	@NotBlank
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
@@ -67,7 +67,7 @@ public class RawMaterialRecord {
 		this.lote = lote;
 		this.arrival_date = arrival_date;
 		this.start_date = start_date;
-		this.end_date = end_date;
+		this.enddate = end_date;
 		this.user = user;
 		this.signed = signed;
 	}
@@ -108,10 +108,10 @@ public class RawMaterialRecord {
 		this.start_date = start_date;
 	}
 	public Date getEnd_date() {
-		return end_date;
+		return enddate;
 	}
 	public void setEnd_date(Date end_date) {
-		this.end_date = end_date;
+		this.enddate = end_date;
 	}
 	public User getUser() {
 		return user;
