@@ -156,7 +156,7 @@ public class MeatRecordController {
 				pageable=PageRequest.of(page, size,Sort.by("date").descending());
 			}
 		}
-		System.out.println(caseSearch.toString());
+
 		pageList=this.MeatRecordservice.getAllBy(cadena, uid, pageable, caseSearch);
 			
 		

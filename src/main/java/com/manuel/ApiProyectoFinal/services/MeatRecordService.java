@@ -94,13 +94,13 @@ public class MeatRecordService {
 					page=this.MeatRecordrepository.findByDateAndUser(date, getuser.get(), pageable);
 					break;
 				case LOTE:
-					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(search, getuser.get(), pageable);
 					break;
 				case PRODUCT:
-					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(search, getuser.get(), pageable);
 					break;
 				case SUPPLIER:
-					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(uid, getuser.get(), pageable);
+					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(search, getuser.get(), pageable);
 					break;
 				default:
 					page=this.MeatRecordrepository.findByUser(getuser.get(), pageable);
