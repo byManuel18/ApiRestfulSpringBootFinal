@@ -83,30 +83,6 @@ public class MeatRecordService {
 		}
 	}
 	
-	public Integer getPages(String uid,int size,String product) {
-		Optional<User> user=this.UserRepository.findById(uid);
-		if(user.isPresent()) {
-			Pageable pageable=PageRequest.of(0, size);
-			Page<MeatRecord> page=null;
-			if(product!=null&&product!="") {
-				page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, user.get(), pageable);
-				if(page!=null) {
-					return page.getTotalPages();
-				}else {
-					return 0;
-				}
-			}else {
-				page=this.MeatRecordrepository.findByUser(user.get(), pageable);
-				if(page!=null) {
-					return page.getTotalPages();
-				}else {
-					return 0;
-				}
-			}
-		}else {
-			return 0;
-		}
-	}
 	
 	public Integer getPages(String uid,int size,String search,SearchByMeatRecord caseSearch) {
 	

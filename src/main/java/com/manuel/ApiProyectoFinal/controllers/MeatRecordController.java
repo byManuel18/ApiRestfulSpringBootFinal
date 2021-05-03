@@ -55,14 +55,7 @@ public class MeatRecordController {
 	public ResponseEntity<Boolean> deleteMeatrecord(@PathVariable("id") Long id){
 		return new ResponseEntity<Boolean>(this.MeatRecordservice.deleteMeatRecord(id),new HttpHeaders(),HttpStatus.OK); 
 	}
-	
-	/*@CrossOrigin(origins = "*",maxAge = 3600)
-	@GetMapping("/getPages/{uid}/{size}")
-	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue = "") String product){
-		Integer np=this.MeatRecordservice.getPages(uid, size, product);
-		return new ResponseEntity<Integer>(np,new HttpHeaders(),HttpStatus.OK);
-	}*/
-	
+		
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
 	public ResponseEntity<List<MeatRecord>> getAllBy(@PathVariable("uid") String uid,@PathVariable("size") int size,@PathVariable("page") int page ,@RequestParam(name = "product", defaultValue = "") String product
@@ -89,23 +82,18 @@ public class MeatRecordController {
 		
 		SearchByMeatRecord caseSearch=SearchByMeatRecord.NO;
 		String cadena="";
-		if(product!=""){
-			System.out.println(1);
-			System.out.println("->"+product+"<-");
-			cadena=product;
-			caseSearch=SearchByMeatRecord.PRODUCT;
-		}else if(lote!="") {
+		if(!lote.equals("")) {
 			cadena=lote;
 			caseSearch=SearchByMeatRecord.LOTE;
-			System.out.println(2);
-		}else if(date!="") {
-			System.out.println(3);
+		}else if(!date.equals("")) {
 			cadena=date;
 			caseSearch=SearchByMeatRecord.DATE;
-		}else if(supplier!="") {
-			System.out.println(4);
+		}else if(!supplier.equals("")) {
 			cadena=supplier;
 			caseSearch=SearchByMeatRecord.SUPPLIER;
+		}else if(!product.equals("")) {
+			cadena=product;
+			caseSearch=SearchByMeatRecord.PRODUCT;
 		}
 		
 		Integer np=this.MeatRecordservice.getPages(uid, size, cadena,caseSearch);
