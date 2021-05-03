@@ -70,16 +70,13 @@ public class MeatRecordService {
 		if(getuser.isPresent()) {
 			if(product!=null&&product!="") {
 				Page<MeatRecord> p=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, getuser.get(), pageable);
-				System.out.println(p.getNumberOfElements());
 				return p;
 			}else {
 				
 				Page<MeatRecord> p=this.MeatRecordrepository.findByUser(getuser.get(), pageable);
-				System.out.println(p.getNumberOfElements());
 				return p;
 			}
 		}else {
-			System.out.println("Aquí no plis");
 			return null;
 		}
 	}
@@ -90,9 +87,19 @@ public class MeatRecordService {
 			Pageable pageable=PageRequest.of(0, size);
 			Page<MeatRecord> page=null;
 			if(product!=null&&product!="") {
-				return this.MeatRecordrepository.findByUser(user.get(), pageable).getTotalPages();
+				page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, user.get(), pageable);
+				if(page!=null) {
+					return page.getTotalPages();
+				}else {
+					return 0;
+				}
 			}else {
-				return this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, user.get(), pageable).getTotalPages();
+				page=this.MeatRecordrepository.findByUser(user.get(), pageable);
+				if(page!=null) {
+					return page.getTotalPages();
+				}else {
+					return 0;
+				}
 			}
 		}else {
 			return 0;
