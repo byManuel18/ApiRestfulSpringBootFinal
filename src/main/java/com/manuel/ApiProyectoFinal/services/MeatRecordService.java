@@ -116,19 +116,24 @@ public class MeatRecordService {
 			Page<MeatRecord> page=null;
 			switch (caseSearch) {
 			case DATE:
+				System.out.println("date");
 					Date date=Date.valueOf(search);
 					page=this.MeatRecordrepository.findByDateAndUser(date, user.get(), pageable);
 				break;
 			case LOTE:
+				System.out.println("lote");
 					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			case PRODUCT:
+				System.out.println("product");
 					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			case SUPPLIER:
+				System.out.println("supplier");
 					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
 				break;
 			default:
+				System.out.println("all");
 					page=this.MeatRecordrepository.findByUser(user.get(), pageable);
 				break;
 			}
