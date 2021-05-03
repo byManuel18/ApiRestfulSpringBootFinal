@@ -69,11 +69,14 @@ public class MeatRecordService {
 		Optional<User> getuser=this.UserRepository.findById(uid);
 		if(getuser.isPresent()) {
 			if(product!=null&&product!="") {
-				System.out.println("SI");
-				return this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, getuser.get(), pageable);
+				Page<MeatRecord> p=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, getuser.get(), pageable);
+				System.out.println(p.getNumberOfElements());
+				return p;
 			}else {
-				System.out.println("SI");
-				return this.MeatRecordrepository.findByUser(getuser.get(), pageable);
+				
+				Page<MeatRecord> p=this.MeatRecordrepository.findByUser(getuser.get(), pageable);
+				System.out.println(p.getNumberOfElements());
+				return p;
 			}
 		}else {
 			System.out.println("Aquí no plis");
