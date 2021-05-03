@@ -112,19 +112,15 @@ public class UserService {
 			switch (sbU) {
 			case uid:
 				page=this.userRepository.findByUidStartsWithIgnoreCase(characters, pageable);
-				System.out.println("uid");
 				break;
 			case email:
 				page=this.userRepository.findByGmailStartsWithIgnoreCase(characters, pageable);
-				System.out.println("email");
 				break;
 			case name:
 				page=this.userRepository.findByNameStartsWithIgnoreCase(characters, pageable);
-				System.out.println("name");
 				break;
 			case phone:
 				page=this.userRepository.findByPhoneStartsWithIgnoreCase(characters, pageable);
-				System.out.println("phone");
 				break;
 			default:
 				page= this.userRepository.findAll(pageable);

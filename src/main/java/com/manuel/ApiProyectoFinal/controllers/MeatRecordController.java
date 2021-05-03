@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
+import com.manuel.ApiProyectoFinal.enums.SearchByMeatRecord;
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
 import com.manuel.ApiProyectoFinal.services.MeatRecordService;
 
@@ -55,12 +56,12 @@ public class MeatRecordController {
 		return new ResponseEntity<Boolean>(this.MeatRecordservice.deleteMeatRecord(id),new HttpHeaders(),HttpStatus.OK); 
 	}
 	
-	@CrossOrigin(origins = "*",maxAge = 3600)
+	/*@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue = "") String product){
 		Integer np=this.MeatRecordservice.getPages(uid, size, product);
 		return new ResponseEntity<Integer>(np,new HttpHeaders(),HttpStatus.OK);
-	}
+	}*/
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
@@ -78,6 +79,32 @@ public class MeatRecordController {
 			lista.addAll(pageList.getContent());
 		}
 		return new ResponseEntity<List<MeatRecord>>(lista,new HttpHeaders(),HttpStatus.OK);
+	}
+	
+	
+	@CrossOrigin(origins = "*",maxAge = 3600)
+	@GetMapping("/getPages/{uid}/{size}")
+	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue = "") String product,
+			@RequestParam(name = "lote", defaultValue = "") String lote,@RequestParam(name = "supplier", defaultValue = "") String supplier,@RequestParam(name = "date", defaultValue = "") String date){
+		
+		SearchByMeatRecord caseSearch=SearchByMeatRecord.NO;
+		String cadena="";
+		if(product!=null&&product!="") {
+			cadena=product;
+			caseSearch=SearchByMeatRecord.PRODUCT;
+		}else if(lote!=null&&lote!="") {
+			cadena=lote;
+			caseSearch=SearchByMeatRecord.LOTE;
+		}else if(date!=null&&date!="") {
+			cadena=date;
+			caseSearch=SearchByMeatRecord.DATE;
+		}else if(supplier!=null&&supplier!="") {
+			cadena=supplier;
+			caseSearch=SearchByMeatRecord.SUPPLIER;
+		}
+		
+		Integer np=this.MeatRecordservice.getPages(uid, size, cadena,caseSearch);
+		return new ResponseEntity<Integer>(np,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	

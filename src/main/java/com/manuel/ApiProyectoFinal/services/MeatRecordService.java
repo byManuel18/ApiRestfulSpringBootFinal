@@ -1,5 +1,6 @@
 package com.manuel.ApiProyectoFinal.services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.manuel.ApiProyectoFinal.enums.SearchByMeatRecord;
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.MeatRecordRepository;
@@ -104,6 +106,41 @@ public class MeatRecordService {
 		}else {
 			return 0;
 		}
+	}
+	
+	public Integer getPages(String uid,int size,String search,SearchByMeatRecord caseSearch) {
+	
+		Optional<User> user=this.UserRepository.findById(uid);
+		if(user.isPresent()) {
+			Pageable pageable=PageRequest.of(0, size);
+			Page<MeatRecord> page=null;
+			switch (caseSearch) {
+			case DATE:
+					Date date=Date.valueOf(search);
+					page=this.MeatRecordrepository.findByDateAndUser(date, user.get(), pageable);
+				break;
+			case LOTE:
+					page=this.MeatRecordrepository.findByLoteStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
+				break;
+			case PRODUCT:
+					page=this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
+				break;
+			case SUPPLIER:
+					page=this.MeatRecordrepository.findBySupplierStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
+				break;
+			default:
+					page=this.MeatRecordrepository.findByUser(user.get(), pageable);
+				break;
+			}
+			if(page!=null) {
+				return page.getTotalPages();
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+		
 	}
 
 }
