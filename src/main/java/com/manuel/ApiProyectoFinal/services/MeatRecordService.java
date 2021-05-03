@@ -74,7 +74,7 @@ public class MeatRecordService {
 				return p;
 			}else {
 				
-				Page<MeatRecord> p=this.MeatRecordrepository.findById_user(uid, pageable);
+				Page<MeatRecord> p=this.MeatRecordrepository.findByUser(getuser.get(), pageable);
 				System.out.println(p.getNumberOfElements());
 				return p;
 			}
@@ -90,7 +90,7 @@ public class MeatRecordService {
 			Pageable pageable=PageRequest.of(0, size);
 			Page<MeatRecord> page=null;
 			if(product!=null&&product!="") {
-				return this.MeatRecordrepository.findById_user(uid, pageable).getTotalPages();
+				return this.MeatRecordrepository.findByUser(user.get(), pageable).getTotalPages();
 			}else {
 				return this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, user.get(), pageable).getTotalPages();
 			}
