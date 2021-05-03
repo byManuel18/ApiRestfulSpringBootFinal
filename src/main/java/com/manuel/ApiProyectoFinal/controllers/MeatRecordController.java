@@ -90,15 +90,19 @@ public class MeatRecordController {
 		SearchByMeatRecord caseSearch=SearchByMeatRecord.NO;
 		String cadena="";
 		if(product!=null&&product!="") {
+			System.out.println(1);
 			cadena=product;
 			caseSearch=SearchByMeatRecord.PRODUCT;
 		}else if(lote!=null&&lote!="") {
 			cadena=lote;
 			caseSearch=SearchByMeatRecord.LOTE;
+			System.out.println(2);
 		}else if(date!=null&&date!="") {
+			System.out.println(3);
 			cadena=date;
 			caseSearch=SearchByMeatRecord.DATE;
 		}else if(supplier!=null&&supplier!="") {
+			System.out.println(4);
 			cadena=supplier;
 			caseSearch=SearchByMeatRecord.SUPPLIER;
 		}
