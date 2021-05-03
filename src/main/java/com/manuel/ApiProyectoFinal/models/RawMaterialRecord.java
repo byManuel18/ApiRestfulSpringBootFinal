@@ -36,11 +36,11 @@ public class RawMaterialRecord {
 	
 	@NotBlank
 	@Column(name = "arrival_date",nullable = false)
-	private Date arrival_date;
+	private Date arrivaldate;
 	
 	
 	@Column(name = "start_date",nullable = true)
-	private Date start_date;
+	private Date startdate;
 	
 	@Column(name = "end_date",nullable = true)
 	private Date enddate;
@@ -65,8 +65,8 @@ public class RawMaterialRecord {
 		this.commodity = commodity;
 		this.supplier = supplier;
 		this.lote = lote;
-		this.arrival_date = arrival_date;
-		this.start_date = start_date;
+		this.arrivaldate = arrival_date;
+		this.startdate = start_date;
 		this.enddate = end_date;
 		this.user = user;
 		this.signed = signed;
@@ -96,16 +96,16 @@ public class RawMaterialRecord {
 		this.lote = lote;
 	}
 	public Date getArrival_date() {
-		return arrival_date;
+		return arrivaldate;
 	}
 	public void setArrival_date(Date arrival_date) {
-		this.arrival_date = arrival_date;
+		this.arrivaldate = arrival_date;
 	}
 	public Date getStart_date() {
-		return start_date;
+		return startdate;
 	}
 	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+		this.startdate = start_date;
 	}
 	public Date getEnd_date() {
 		return enddate;

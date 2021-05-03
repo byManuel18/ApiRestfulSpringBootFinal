@@ -13,8 +13,8 @@ public interface RawMaterialRecordRepository extends JpaRepository<RawMaterialRe
 	Page<RawMaterialRecord> findByCommodityStartsWithIgnoreCaseAndUser(String commodity,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByLoteStartsWithIgnoreCaseAndUser(String lote,User user,Pageable pageable);
 	Page<RawMaterialRecord> findBySupplierStartsWithIgnoreCaseAndUser(String supplier,User user,Pageable pageable);
-	Page<RawMaterialRecord> findByArrival_dateAndUser(Date arrival_date,User user,Pageable pageable);
-	Page<RawMaterialRecord> findByStart_dateAndUser(Date start_date,User user,Pageable pageable);
+	Page<RawMaterialRecord> findByArrivaldateAndUser(Date arrivaldate,User user,Pageable pageable);
+	Page<RawMaterialRecord> findByStartdateAndUser(Date startdate,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByEnddateAndUser(Date enddate,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByUser(User user,Pageable pageable);
 }

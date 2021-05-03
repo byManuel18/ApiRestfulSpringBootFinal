@@ -76,7 +76,7 @@ public class RawMaterialRecordService {
 			switch (caseSearch) {
 			case ARRIVAL_DATE:
 				date= Date.valueOf(search);
-				page=this.rawMaterialRecordRepository.findByArrival_dateAndUser(date, getUser.get(), pageable);
+				page=this.rawMaterialRecordRepository.findByArrivaldateAndUser(date, getUser.get(), pageable);
 				break;
 			case COMMODITY:
 				page=this.rawMaterialRecordRepository.findByCommodityStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
@@ -90,7 +90,7 @@ public class RawMaterialRecordService {
 				break;
 			case START_DATE:
 				date = Date.valueOf(search);
-				page=this.rawMaterialRecordRepository.findByStart_dateAndUser(date,getUser.get(), pageable);
+				page=this.rawMaterialRecordRepository.findByStartdateAndUser(date,getUser.get(), pageable);
 				break;
 			case SUPPLIER:
 				page=this.rawMaterialRecordRepository.findBySupplierStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
@@ -118,7 +118,7 @@ public class RawMaterialRecordService {
 			switch (caseSearch) {
 				case ARRIVAL_DATE:
 					date= Date.valueOf(search);
-					page=this.rawMaterialRecordRepository.findByArrival_dateAndUser(date, getUser.get(), pageable);
+					page=this.rawMaterialRecordRepository.findByArrivaldateAndUser(date, getUser.get(), pageable);
 					break;
 				case COMMODITY:
 					page=this.rawMaterialRecordRepository.findByCommodityStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
@@ -132,7 +132,7 @@ public class RawMaterialRecordService {
 					break;
 				case START_DATE:
 					date = Date.valueOf(search);
-					page=this.rawMaterialRecordRepository.findByStart_dateAndUser(date,getUser.get(), pageable);
+					page=this.rawMaterialRecordRepository.findByStartdateAndUser(date,getUser.get(), pageable);
 					break;
 				case SUPPLIER:
 					page=this.rawMaterialRecordRepository.findBySupplierStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
