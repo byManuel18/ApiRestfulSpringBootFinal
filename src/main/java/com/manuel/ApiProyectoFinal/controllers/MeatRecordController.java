@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,6 +46,12 @@ public class MeatRecordController {
 		
 		return new ResponseEntity<MeatRecord>(this.MeatRecordservice.createMeatRecord(newMeatRecord),new HttpHeaders(),HttpStatus.OK);	
 		
+	}
+	
+	@CrossOrigin(origins = "*",maxAge = 3600)
+	@PutMapping()
+	public ResponseEntity<MeatRecord> updateMeatRecord(@Valid @RequestBody MeatRecord updateMeatRecoird){
+		return new ResponseEntity<MeatRecord>(this.MeatRecordservice.updateMeatRecord(updateMeatRecoird),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
