@@ -9,5 +9,5 @@ import com.manuel.ApiProyectoFinal.models.User;
 public interface MeatRecordRepository extends JpaRepository<MeatRecord,Long>{
 	
 	Page<MeatRecord> findByProductStartsWithIgnoreCaseAndUser(String product,User user,Pageable pageable);
-	Page<MeatRecord> findByUser(User user,Pageable pageable);
+	Page<MeatRecord> findById_user(String id_user,Pageable pageable);
 }
