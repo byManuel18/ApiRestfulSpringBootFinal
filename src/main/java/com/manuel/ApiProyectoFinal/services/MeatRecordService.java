@@ -4,15 +4,23 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
+import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.MeatRecordRepository;
+import com.manuel.ApiProyectoFinal.repositories.UserRepository;
 
 @Service
 public class MeatRecordService {
 	@Autowired
 	private MeatRecordRepository MeatRecordrepository;
+	
+	@Autowired
+	private UserRepository UserRepository;
 	
 	public MeatRecord createMeatRecord(MeatRecord newMeatRecord){
 		MeatRecord toadd=new MeatRecord();
@@ -54,6 +62,35 @@ public class MeatRecordService {
 	
 	public List<MeatRecord> getAllMeatRecord(){
 		return this.MeatRecordrepository.findAll();
+	}
+	
+	public Page<MeatRecord> getAllBy(String product, String uid,Pageable pageable){
+		
+		Optional<User> getuser=this.UserRepository.findById(uid);
+		if(getuser.isPresent()) {
+			if(product!=null&&product!="") {
+				return this.MeatRecordrepository.findByUser(getuser.get(), pageable);
+			}else {
+				return this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, getuser.get(), pageable);
+			}
+		}else {
+			return null;
+		}
+	}
+	
+	public Integer getPages(String uid,int size,String product) {
+		Optional<User> user=this.UserRepository.findById(uid);
+		if(user.isPresent()) {
+			Pageable pageable=PageRequest.of(0, size);
+			Page<MeatRecord> page=null;
+			if(product!=null&&product!="") {
+				return this.MeatRecordrepository.findByUser(user.get(), pageable).getTotalPages();
+			}else {
+				return this.MeatRecordrepository.findByProductStartsWithIgnoreCaseAndUser(product, user.get(), pageable).getTotalPages();
+			}
+		}else {
+			return 0;
+		}
 	}
 
 }
