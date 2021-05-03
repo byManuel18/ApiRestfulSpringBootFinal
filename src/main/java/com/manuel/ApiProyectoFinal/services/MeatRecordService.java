@@ -54,8 +54,12 @@ public class MeatRecordService {
 		Optional<MeatRecord> toupdate=this.MeatRecordrepository.findById(updateMeatRecord.getId());
 		if(toupdate.isPresent()) {
 			MeatRecord update=toupdate.get();
+			update.setDate(updateMeatRecord.getDate());
+			update.setLote(updateMeatRecord.getLote());
 			update.setProduct(updateMeatRecord.getProduct().toUpperCase());
+			update.setSigned(updateMeatRecord.getSigned());
 			update.setSupplier(updateMeatRecord.getSupplier().toUpperCase());
+			update.setUser(updateMeatRecord.getUser());
 			return this.MeatRecordrepository.save(update);
 		}else {
 			return null;
