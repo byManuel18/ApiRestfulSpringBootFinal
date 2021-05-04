@@ -24,7 +24,7 @@ public class WatterRecord {
 	private Long id;
 	
 	@NotBlank
-	@Column(name = "sampling_point",nullable = false)
+	@Column(name = "samplingpoint",nullable = false)
 	private String samplingpoint;
 	
 	@NotBlank
