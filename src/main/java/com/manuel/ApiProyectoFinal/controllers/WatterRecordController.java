@@ -39,6 +39,7 @@ public class WatterRecordController {
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
 	public ResponseEntity<WatterRecord> createWatterRecord(@Valid @RequestBody WatterRecord newWatterRecord){
+		System.out.println(newWatterRecord);
 		return new ResponseEntity<WatterRecord>(this.watterRecordService.createWatterRecord(newWatterRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
