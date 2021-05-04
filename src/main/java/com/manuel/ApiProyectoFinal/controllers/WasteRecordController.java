@@ -112,7 +112,7 @@ public class WasteRecordController {
 			listWasteRecord.addAll(pageList.getContent());
 		}
 		
-		return null;
+		return new ResponseEntity<List<WasteRecord>>(listWasteRecord,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 }
