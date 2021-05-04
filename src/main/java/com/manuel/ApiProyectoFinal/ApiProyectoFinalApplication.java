@@ -52,6 +52,7 @@ public class ApiProyectoFinalApplication {
 				registry.addMapping("/rawmaterialrecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/condition/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/watterrecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+				registry.addMapping("/wasterecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 			}
 		};
 	}
