@@ -56,13 +56,17 @@ public class WatterRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
-	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "date", defaultValue ="") String date){
+	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "date", defaultValue ="") String date,
+			@RequestParam(name = "samplingpoint", defaultValue ="") String samplingpoint){
 		String cadena="";
 		WatterRecordSearch caseSearch=WatterRecordSearch.NO;
 		
 		if(!date.equals("")) {
 			cadena =date;
 			caseSearch=WatterRecordSearch.DATE;
+		}else if(!samplingpoint.equals("")) {
+			cadena=samplingpoint;
+			caseSearch=WatterRecordSearch.SAMPLING_POINT;
 		}
 		
 		Integer totalpages=this.watterRecordService.getPages(uid, cadena, caseSearch, size);
@@ -74,7 +78,7 @@ public class WatterRecordController {
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
 	public ResponseEntity<List<WatterRecord>> getAllBy(@PathVariable("page") int page,@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "date", defaultValue ="") String date,
-			@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
+			@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,@RequestParam(name = "samplingpoint", defaultValue ="") String samplingpoint){
 		String cadena="";
 		WatterRecordSearch caseSearch=WatterRecordSearch.NO;
 		Pageable pageable=null;
@@ -84,14 +88,28 @@ public class WatterRecordController {
 		if(!date.equals("")) {
 			cadena=date;
 			caseSearch=WatterRecordSearch.DATE;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("date").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("date").descending());
+			}
 			
+		}else if(!samplingpoint.equals("")){
+			cadena=samplingpoint;
+			caseSearch=WatterRecordSearch.SAMPLING_POINT;
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("samplingpoint").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("samplingpoint").descending());
+			}
+		}else {
+			if(order==AscDesc.ASCENDING) {
+				pageable=PageRequest.of(page, size,Sort.by("date").ascending());
+			}else {
+				pageable=PageRequest.of(page, size,Sort.by("date").descending());
+			}
 		}
 		
-		if(order==AscDesc.ASCENDING) {
-			pageable=PageRequest.of(page, size,Sort.by("date").ascending());
-		}else {
-			pageable=PageRequest.of(page, size,Sort.by("date").descending());
-		}
 		
 		pageList=this.watterRecordService.getAllBy(cadena, uid, caseSearch, pageable);
 		

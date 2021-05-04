@@ -16,7 +16,8 @@ public interface WatterRecordRepository extends JpaRepository<WatterRecord, Long
 			nativeQuery = true)
 	int ExistWatterRecord(Date date, String uid);
 	
-	Page<WatterRecord> findByUser(User user, Pageable pageable);
+	Page<WatterRecord> findByUser(User user, Pageable pageable); 
 	Page<WatterRecord> findByDateAndUser(Date date,User user,Pageable pageable);
+	Page<WatterRecord> findBySamplingpointStartsWithIgnoreCaseAndUser(String samplingpoint,User user,Pageable pageable);
 	
 }

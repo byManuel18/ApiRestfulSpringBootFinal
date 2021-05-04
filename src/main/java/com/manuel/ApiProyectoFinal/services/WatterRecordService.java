@@ -30,7 +30,7 @@ public class WatterRecordService {
 			toadd.setCondition(newWatterRecord.getCondition());
 			toadd.setDate(newWatterRecord.getDate());
 			toadd.setOrganoleptic_control(newWatterRecord.getOrganoleptic_control());
-			toadd.setSampling_point(newWatterRecord.getSampling_point());
+			toadd.setSamplingpoint(newWatterRecord.getSamplingpoint().toUpperCase());
 			toadd.setSigned(newWatterRecord.getSigned());
 			toadd.setUser(newWatterRecord.getUser());
 			return this.watterRecordRepository.save(toadd);
@@ -48,7 +48,7 @@ public class WatterRecordService {
 				upWatt.setCondition(updateWatterRecord.getCondition());
 				upWatt.setDate(updateWatterRecord.getDate());
 				upWatt.setOrganoleptic_control(updateWatterRecord.getOrganoleptic_control());
-				upWatt.setSampling_point(updateWatterRecord.getSampling_point());
+				upWatt.setSamplingpoint(updateWatterRecord.getSamplingpoint().toUpperCase());
 				upWatt.setSigned(updateWatterRecord.getSigned());
 				upWatt.setUser(updateWatterRecord.getUser());
 				return this.watterRecordRepository.save(upWatt);
@@ -81,6 +81,9 @@ public class WatterRecordService {
 						Date date=Date.valueOf(search);
 						page=this.watterRecordRepository.findByDateAndUser(date, user.get(),pageable);
 					break;
+				case SAMPLING_POINT:
+						page=this.watterRecordRepository.findBySamplingpointStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
+					break;
 	
 				default:
 						page=this.watterRecordRepository.findByUser(user.get(),pageable);
@@ -107,6 +110,9 @@ public class WatterRecordService {
 					Date date=Date.valueOf(search);
 					page=this.watterRecordRepository.findByDateAndUser(date, user.get(), pageable);
 				break;
+			case SAMPLING_POINT:
+				page=this.watterRecordRepository.findBySamplingpointStartsWithIgnoreCaseAndUser(search, user.get(), pageable);
+			break;
 
 			default:
 					page=this.watterRecordRepository.findByUser(user.get(), pageable);

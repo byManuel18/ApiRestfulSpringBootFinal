@@ -25,7 +25,7 @@ public class WatterRecord {
 	
 	@NotBlank
 	@Column(name = "sampling_point",nullable = false)
-	private double sampling_point;
+	private String samplingpoint;
 	
 	@NotBlank
 	@Column(name = "organoleptic_control",nullable = false)
@@ -54,11 +54,11 @@ public class WatterRecord {
 		super();
 	}
 
-	public WatterRecord(Long id, double sampling_point, double organoleptic_control, Date date, Signed signed,
-			User user, Condition condition) {
+	public WatterRecord(Long id, @NotBlank String samplingpoint, @NotBlank double organoleptic_control,
+			@NotBlank Date date, @NotBlank Signed signed, @NotBlank User user, @NotBlank Condition condition) {
 		super();
 		this.id = id;
-		this.sampling_point = sampling_point;
+		this.samplingpoint = samplingpoint;
 		this.organoleptic_control = organoleptic_control;
 		this.date = date;
 		this.signed = signed;
@@ -74,12 +74,12 @@ public class WatterRecord {
 		this.id = id;
 	}
 
-	public double getSampling_point() {
-		return sampling_point;
+	public String getSamplingpoint() {
+		return samplingpoint;
 	}
 
-	public void setSampling_point(double sampling_point) {
-		this.sampling_point = sampling_point;
+	public void setSamplingpoint(String samplingpoint) {
+		this.samplingpoint = samplingpoint;
 	}
 
 	public double getOrganoleptic_control() {
@@ -124,10 +124,11 @@ public class WatterRecord {
 
 	@Override
 	public String toString() {
-		return "WatterRecord [id=" + id + ", sampling_point=" + sampling_point + ", organoleptic_control="
+		return "WatterRecord [id=" + id + ", samplingpoint=" + samplingpoint + ", organoleptic_control="
 				+ organoleptic_control + ", date=" + date + ", signed=" + signed + ", user=" + user + ", condition="
 				+ condition + "]";
 	}
 
+	
 
 }
