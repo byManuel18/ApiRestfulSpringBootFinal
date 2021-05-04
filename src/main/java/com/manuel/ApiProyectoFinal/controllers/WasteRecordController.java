@@ -73,7 +73,7 @@ public class WasteRecordController {
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
-	@GetMapping("/getPages/{uid}/{page}/{size}")
+	@GetMapping("/getBy/{uid}/{page}/{size}")
 	public ResponseEntity<List<WasteRecord>> getAllBy(@PathVariable("uid") String uid, @PathVariable("size") int size,
 			@RequestParam(name = "date", defaultValue ="") String date,@RequestParam(name = "person", defaultValue ="") String person,
 			@PathVariable("page")int page,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
