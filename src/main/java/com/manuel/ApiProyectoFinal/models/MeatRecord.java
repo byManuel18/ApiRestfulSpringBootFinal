@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="meatrecord")
+@JsonIgnoreProperties("traceability")
 public class MeatRecord {
 	
 	@Id
