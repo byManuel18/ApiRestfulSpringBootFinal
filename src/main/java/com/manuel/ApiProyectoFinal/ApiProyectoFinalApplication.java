@@ -53,6 +53,7 @@ public class ApiProyectoFinalApplication {
 				registry.addMapping("/condition/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/watterrecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/wasterecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+				registry.addMapping("/traceabilityofmeat/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 			}
 		};
 	}

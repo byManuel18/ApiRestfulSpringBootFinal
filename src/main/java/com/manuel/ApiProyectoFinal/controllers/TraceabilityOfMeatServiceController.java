@@ -126,7 +126,7 @@ public class TraceabilityOfMeatServiceController {
 		if(pageTOM!=null) {
 			listaTOM.addAll(pageTOM.getContent());
 		}
-		return null;
+		return new ResponseEntity<List<TraceabilityOfMeat>>(listaTOM,new HttpHeaders(),HttpStatus.OK);
 	}
 
 }
