@@ -23,7 +23,7 @@ public class WatterRecordService {
 	private UserRepository userRepository;
 	
 	public WatterRecord createWatterRecord(WatterRecord newWatterRecord) {
-		if(this.watterRecordRepository.ExistWatterRecord(newWatterRecord.getDate(),newWatterRecord.getUser().getUid())>0) {
+		if(this.watterRecordRepository.ExistWatterRecord(newWatterRecord.getDate(),newWatterRecord.getUser().getUid(),newWatterRecord.getSamplingpoint().toUpperCase())>0) {
 			return null;
 		}else {
 			WatterRecord toadd=new WatterRecord();
@@ -41,7 +41,7 @@ public class WatterRecordService {
 		Optional<WatterRecord> toupdate=this.watterRecordRepository.findById(updateWatterRecord.getId());
 		
 		if(toupdate.isPresent()) {
-			if(this.watterRecordRepository.ExistWatterRecord(updateWatterRecord.getDate(),updateWatterRecord.getUser().getUid())>0) {
+			if(this.watterRecordRepository.ExistWatterRecord(updateWatterRecord.getDate(),updateWatterRecord.getUser().getUid(),updateWatterRecord.getSamplingpoint().toUpperCase())>0) {
 				return null;
 			}else {
 				WatterRecord upWatt=toupdate.get();
