@@ -10,8 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="meatrecord")
@@ -47,6 +50,10 @@ public class MeatRecord {
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;
+	
+	@JsonIgnoreProperties()
+	@OneToOne(mappedBy = "meatrecord")
+	private TraceabilityOfMeat traceability;
 	
 	public MeatRecord() {
 		super();
@@ -117,6 +124,14 @@ public class MeatRecord {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public TraceabilityOfMeat getTraceability() {
+		return traceability;
+	}
+
+	public void setTraceability(TraceabilityOfMeat traceability) {
+		this.traceability = traceability;
 	}
 
 	@Override

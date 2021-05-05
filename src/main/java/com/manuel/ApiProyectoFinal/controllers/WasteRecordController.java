@@ -56,7 +56,6 @@ public class WasteRecordController {
 	@GetMapping("/getPages/{uid}/{size}")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid, @PathVariable("size") int size,
 			@RequestParam(name = "date", defaultValue ="") String date,@RequestParam(name = "person", defaultValue ="") String person){
-		System.out.println("Pages");
 		SearchByWasteRecord caseSearch=SearchByWasteRecord.NO;
 		String cadena="";
 		if(!person.equals("")) {
@@ -77,7 +76,6 @@ public class WasteRecordController {
 	public ResponseEntity<List<WasteRecord>> getAllBy(@PathVariable("uid") String uid, @PathVariable("size") int size,
 			@RequestParam(name = "date", defaultValue ="") String date,@RequestParam(name = "person", defaultValue ="") String person,
 			@PathVariable("page")int page,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
-		System.out.println("GetAll");
 		String cadena="";
 		Pageable pageable=null;
 		SearchByWasteRecord caseSearch=SearchByWasteRecord.NO;
