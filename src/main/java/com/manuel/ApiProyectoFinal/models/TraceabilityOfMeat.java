@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="traceabilityofmeat")
 public class TraceabilityOfMeat {
@@ -44,6 +46,7 @@ public class TraceabilityOfMeat {
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
+	@JsonIgnoreProperties("user")
 	@OneToOne
 	@JoinColumn(name="id_meatrecord")
 	private MeatRecord meatrecord;
