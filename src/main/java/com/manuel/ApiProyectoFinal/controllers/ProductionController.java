@@ -28,6 +28,7 @@ public class ProductionController {
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
 	public ResponseEntity<Production> createProduction(@Valid @RequestBody Production newProduction){
+		System.out.println(newProduction);
 		return new ResponseEntity<Production>(this.productionService.createProduction(newProduction),new HttpHeaders(),HttpStatus.OK);
 	}
 	

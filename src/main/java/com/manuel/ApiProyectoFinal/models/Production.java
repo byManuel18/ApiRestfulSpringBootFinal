@@ -48,18 +48,20 @@ public class Production {
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	
     @JoinTable(name = "production_tracmeat", 
       joinColumns = @JoinColumn(name = "traceabilityofmeat_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.MERGE)
 	private List<TraceabilityOfMeat> listTraceabilityOfMeat=new ArrayList<TraceabilityOfMeat>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	
     @JoinTable(name = "production_rawmaterial", 
       joinColumns = @JoinColumn(name = "rawmaterialrecord_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
+    @ManyToMany(cascade = CascadeType.MERGE)
 	private List<RawMaterialRecord> listRawMaterialRecord=new ArrayList<RawMaterialRecord>();
 	
 	public Production() {
