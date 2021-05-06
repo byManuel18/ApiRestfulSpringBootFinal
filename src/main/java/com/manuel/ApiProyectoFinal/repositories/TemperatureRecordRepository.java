@@ -16,10 +16,10 @@ public interface TemperatureRecordRepository extends JpaRepository<TemperatureRe
 	Page<TemperatureRecord> findByApplianceAndUser(Appliance appliance,User user,Pageable pageable);
 	Page<TemperatureRecord> findByUser(User user,Pageable pageable);
 	Page<TemperatureRecord> findByDateAndUser(Date date,User user,Pageable pageable);
-	@Query(value="SELECT COUNT(*) FROM temperaturerecord WHERE date=?1 AND id_user=?2 AND id_appliance",
+	@Query(value="SELECT COUNT(*) FROM temperaturerecord WHERE date=?1 AND id_user=?2 AND id_appliance=?3",
 			nativeQuery = true)
 	int ExisttemperatureRecordCreate(Date date,String id_user,Long id_appliance);
-	@Query(value="SELECT COUNT(*) FROM temperaturerecord WHERE date=?1 AND id_user=?2 AND id_appliance AND id!=id",
+	@Query(value="SELECT COUNT(*) FROM temperaturerecord WHERE date=?1 AND id_user=?2 AND id_appliance=?3 AND id!=?4",
 			nativeQuery = true)
 	int ExisttemperatureRecordUpdate(Date date,String id_user,Long id_appliance,Long id);
 }
