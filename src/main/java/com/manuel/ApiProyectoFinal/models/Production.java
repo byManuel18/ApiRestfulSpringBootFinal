@@ -1,6 +1,7 @@
 package com.manuel.ApiProyectoFinal.models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,14 +53,14 @@ public class Production {
       joinColumns = @JoinColumn(name = "traceabilityofmeat_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
-	private List<TraceabilityOfMeat> listTraceabilityOfMeat;
+	private List<TraceabilityOfMeat> listTraceabilityOfMeat=new ArrayList<TraceabilityOfMeat>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "production_rawmaterial", 
       joinColumns = @JoinColumn(name = "rawmaterialrecord_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
-	private List<RawMaterialRecord> listRawMaterialRecord;
+	private List<RawMaterialRecord> listRawMaterialRecord=new ArrayList<RawMaterialRecord>();
 	
 	public Production() {
 		super();

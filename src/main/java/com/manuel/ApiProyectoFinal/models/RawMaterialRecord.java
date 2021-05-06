@@ -1,6 +1,7 @@
 package com.manuel.ApiProyectoFinal.models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -61,7 +62,7 @@ public class RawMaterialRecord {
 	private Signed signed;
 	
 	@ManyToMany(mappedBy = "listRawMaterialRecord")
-	private List<Production> productionRawMaterial;
+	private List<Production> productionRawMaterial=new ArrayList<Production>();
 	
 	public RawMaterialRecord() {
 		super();
