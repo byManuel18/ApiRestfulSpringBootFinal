@@ -1,6 +1,7 @@
 package com.manuel.ApiProyectoFinal.models;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="traceabilityofmeat")
+@JsonIgnoreProperties("productionsTracOfMeat")
 public class TraceabilityOfMeat {
 	
 	@Id
@@ -46,10 +49,12 @@ public class TraceabilityOfMeat {
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
-	@JsonIgnoreProperties("user")
 	@OneToOne
 	@JoinColumn(name="id_meatrecord")
 	private MeatRecord meatrecord;
+	
+	@ManyToMany(mappedBy = "listTraceabilityOfMeat")
+	private List<Production> productionsTracOfMeat;
 	
 	public TraceabilityOfMeat() {
 		super();

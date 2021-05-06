@@ -1,6 +1,7 @@
 package com.manuel.ApiProyectoFinal.models;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,11 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="rawmaterialrecord")
+@JsonIgnoreProperties("productionRawMaterial")
 public class RawMaterialRecord {
 	
 	@Id
@@ -54,6 +59,9 @@ public class RawMaterialRecord {
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_signed")
 	private Signed signed;
+	
+	@ManyToMany(mappedBy = "listRawMaterialRecord")
+	private List<Production> productionRawMaterial;
 	
 	public RawMaterialRecord() {
 		super();

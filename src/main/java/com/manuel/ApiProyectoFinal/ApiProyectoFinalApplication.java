@@ -56,6 +56,7 @@ public class ApiProyectoFinalApplication {
 				registry.addMapping("/traceabilityofmeat/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/appliance/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 				registry.addMapping("/temperaturerecord/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
+				registry.addMapping("/production/**").allowedOrigins("*").allowedMethods("GET","POST","DELETE","PUT").maxAge(3600);
 			}
 		};
 	}
