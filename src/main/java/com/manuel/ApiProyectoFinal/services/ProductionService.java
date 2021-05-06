@@ -23,6 +23,7 @@ public class ProductionService {
 		toadd.setUser(newProduction.getUser());
 		toadd.setListRawMaterialRecord(newProduction.getListRawMaterialRecord());
 		toadd.setListTraceabilityOfMeat(newProduction.getListTraceabilityOfMeat());
+		System.out.println(toadd);
 		return this.productionrepository.save(toadd);
 	}
 	
