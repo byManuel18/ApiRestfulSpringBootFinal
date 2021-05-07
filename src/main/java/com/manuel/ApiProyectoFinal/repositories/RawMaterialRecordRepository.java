@@ -16,5 +16,6 @@ public interface RawMaterialRecordRepository extends JpaRepository<RawMaterialRe
 	Page<RawMaterialRecord> findByArrivaldateAndUser(Date arrivaldate,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByStartdateAndUser(Date startdate,User user,Pageable pageable);
 	Page<RawMaterialRecord> findByEnddateAndUser(Date enddate,User user,Pageable pageable);
+	
 	Page<RawMaterialRecord> findByUser(User user,Pageable pageable);
 }
