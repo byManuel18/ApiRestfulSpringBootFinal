@@ -109,31 +109,31 @@ public class RawMaterialRecordController {
 			cadena=arrival_date;
 			searchCase=SearchByRawMaterialRecord.ARRIVAL_DATE;
 			if(order==AscDesc.ASCENDING) {
-				pageable=PageRequest.of(page, size,Sort.by("arrival_date").ascending());
+				pageable=PageRequest.of(page, size,Sort.by("arrivaldate").ascending());
 			}else {
-				pageable=PageRequest.of(page, size,Sort.by("arrival_date").descending());
+				pageable=PageRequest.of(page, size,Sort.by("arrivaldate").descending());
 			}
 		}else if(!end_date.equals("")) {
 			cadena=end_date;
 			searchCase=SearchByRawMaterialRecord.END_DATE;
 			if(order==AscDesc.ASCENDING) {
-				pageable=PageRequest.of(page, size,Sort.by("end_date").ascending());
+				pageable=PageRequest.of(page, size,Sort.by("enddate").ascending());
 			}else {
-				pageable=PageRequest.of(page, size,Sort.by("end_date").descending());
+				pageable=PageRequest.of(page, size,Sort.by("enddate").descending());
 			}
 		}else if(!start_date.equals("")) {
 			cadena=start_date;
 			searchCase=SearchByRawMaterialRecord.START_DATE;
 			if(order==AscDesc.ASCENDING) {
-				pageable=PageRequest.of(page, size,Sort.by("start_date").ascending());
+				pageable=PageRequest.of(page, size,Sort.by("startdate").ascending());
 			}else {
-				pageable=PageRequest.of(page, size,Sort.by("start_date").descending());
+				pageable=PageRequest.of(page, size,Sort.by("startdate").descending());
 			}
 		}else {
 			if(order==AscDesc.ASCENDING) {
-				pageable=PageRequest.of(page, size,Sort.by("arrival_date").ascending());
+				pageable=PageRequest.of(page, size,Sort.by("arrivaldate").ascending());
 			}else {
-				pageable=PageRequest.of(page, size,Sort.by("arrival_date").descending());
+				pageable=PageRequest.of(page, size,Sort.by("arrivaldate").descending());
 			}
 		}
 		pageList=this.rawMaterialRecordService.getAllBy(uid, cadena, searchCase, pageable);
