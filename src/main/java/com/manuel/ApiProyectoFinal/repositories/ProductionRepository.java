@@ -13,5 +13,5 @@ public interface ProductionRepository extends JpaRepository<Production, Long>{
 	
 	Page<Production> findByDateAndUser(Date date,User user,Pageable pageable);
 	Page<Production> findByUser(User user,Pageable pageable);
-	Page<Production> findByProductAndUser(String product, User user,Pageable pageable);
+	Page<Production> findByProductStartsWithIgnoreCaseAndUser(String product, User user,Pageable pageable);
 }

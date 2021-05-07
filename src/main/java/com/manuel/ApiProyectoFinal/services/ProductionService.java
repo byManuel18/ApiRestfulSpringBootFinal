@@ -1,18 +1,27 @@
 package com.manuel.ApiProyectoFinal.services;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.manuel.ApiProyectoFinal.enums.SearchByProduction;
 import com.manuel.ApiProyectoFinal.models.Production;
+import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.ProductionRepository;
+import com.manuel.ApiProyectoFinal.repositories.UserRepository;
 
 @Service
 public class ProductionService {
 	
 	@Autowired
-	private ProductionRepository productionrepository;
+	ProductionRepository productionrepository;
+	@Autowired 
+	UserRepository userRespository;
 	
 	public Production createProduction(Production newProduction) {
 		Production toadd=new Production();
@@ -52,6 +61,64 @@ public class ProductionService {
 			return true;
 		}else {
 			return false;
+		}
+	}
+	
+	public Integer getPages(int size, String uid, String search,SearchByProduction caseSearch) {
+		
+		Optional<User> getUser=this.userRespository.findById(uid);
+		if(getUser.isPresent()) {
+			Pageable pageable =PageRequest.of(0, size);
+			Page<Production> page= null;
+			
+			switch (caseSearch) {
+			case DATE:
+					Date date=Date.valueOf(search);
+					page=this.productionrepository.findByDateAndUser(date, getUser.get(), pageable);
+					
+				break;
+			case PRODUCT:
+					page=this.productionrepository.findByProductStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
+				break;
+
+			default:
+					page=this.productionrepository.findByUser(getUser.get(), pageable);
+				break;
+			}
+			if(page!=null) {
+				return page.getTotalPages();
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
+	}
+	
+	public Page<Production> getAllBy(String uid,Pageable pageable,SearchByProduction caseSearch,String search){
+		Optional<User> getUser=this.userRespository.findById(uid);
+		if(getUser.isPresent()) {
+			Page<Production> page=null;
+			
+			switch (caseSearch) {
+			case DATE:
+					Date date=Date.valueOf(search);
+					page=this.productionrepository.findByDateAndUser(date, getUser.get(), pageable);
+					
+				break;
+			case PRODUCT:
+					page=this.productionrepository.findByProductStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
+				break;
+
+			default:
+					page=this.productionrepository.findByUser(getUser.get(), pageable);
+				break;
+			}
+			
+			return page;
+			
+		}else {
+			return null;
 		}
 	}
 }
