@@ -138,7 +138,7 @@ public class RawMaterialRecordService {
 					page=this.rawMaterialRecordRepository.findBySupplierStartsWithIgnoreCaseAndUser(search, getUser.get(), pageable);
 					break;
 				default:
-					page=this.rawMaterialRecordRepository.findByUser(getUser.get(), pageable);
+					page=this.rawMaterialRecordRepository.findByLoteStartsWithIgnoreCaseAndUser("", getUser.get(), pageable);
 					break;
 			}
 			
