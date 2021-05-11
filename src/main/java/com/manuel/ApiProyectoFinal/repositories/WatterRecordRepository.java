@@ -16,6 +16,10 @@ public interface WatterRecordRepository extends JpaRepository<WatterRecord, Long
 			nativeQuery = true)
 	int ExistWatterRecord(Date date, String uid,String samplingpoint);
 	
+	@Query(value="SELECT COUNT(*) FROM watterrecord WHERE date=?1 AND id_user=?2 AND samplingpoint=?3 AND id!=?4",
+			nativeQuery = true)
+	int ExistWatterRecordUpdate(Date date, String uid,String samplingpoint,Long id);
+	
 	Page<WatterRecord> findByUser(User user, Pageable pageable); 
 	Page<WatterRecord> findByDateAndUser(Date date,User user,Pageable pageable);
 	Page<WatterRecord> findBySamplingpointStartsWithIgnoreCaseAndUser(String samplingpoint,User user,Pageable pageable);
