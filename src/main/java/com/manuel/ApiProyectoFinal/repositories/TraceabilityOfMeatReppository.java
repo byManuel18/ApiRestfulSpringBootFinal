@@ -14,6 +14,10 @@ public interface TraceabilityOfMeatReppository extends JpaRepository<Traceabilit
 			nativeQuery = true)
 	int ExistTraceabilityOfMeat(String id_user,Long id_id_meatrecord);
 	
+	@Query(value="SELECT COUNT(*) FROM traceabilityofmeat WHERE id_user=?1 AND id_meatrecord=?2 AND id!=?3",
+			nativeQuery = true)
+	int ExistTraceabilityOfMeatUpdate(String id_user,Long id_id_meatrecord,Long id);
+	
 	Page<TraceabilityOfMeat> findByUser(User user,Pageable pageable);
 	Page<TraceabilityOfMeat> findByArrivaldateAndUser(Date arrivaldate,User user,Pageable pageable);
 	Page<TraceabilityOfMeat> findByStartdateAndUser(Date startdate,User user,Pageable pageable);

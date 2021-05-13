@@ -41,15 +41,20 @@ public class TraceabilityOfMeatService {
 	public TraceabilityOfMeat updateTraceabilityOfMeat(TraceabilityOfMeat updateTraceabilityOfMeat) {
 		Optional<TraceabilityOfMeat> toUpdate=this.traceabilityOfMeatRepository.findById(updateTraceabilityOfMeat.getId());
 		if(toUpdate.isPresent()) {
-			TraceabilityOfMeat update=toUpdate.get();
-			update.setArrivaldate(updateTraceabilityOfMeat.getArrivaldate());
-			update.setEnddate(updateTraceabilityOfMeat.getEnddate());
-			update.setMeatrecord(updateTraceabilityOfMeat.getMeatrecord());
-			update.setSigned(updateTraceabilityOfMeat.getSigned());
-			update.setStartdate(updateTraceabilityOfMeat.getStartdate());
-			update.setUser(updateTraceabilityOfMeat.getUser());
-			
-			return this.traceabilityOfMeatRepository.save(update);
+			if(this.traceabilityOfMeatRepository.ExistTraceabilityOfMeatUpdate(updateTraceabilityOfMeat.getUser().getUid(), 
+					updateTraceabilityOfMeat.getMeatrecord().getId(),updateTraceabilityOfMeat.getId())>0) {
+				return null;
+			}else {
+				TraceabilityOfMeat update=toUpdate.get();
+				update.setArrivaldate(updateTraceabilityOfMeat.getArrivaldate());
+				update.setEnddate(updateTraceabilityOfMeat.getEnddate());
+				update.setMeatrecord(updateTraceabilityOfMeat.getMeatrecord());
+				update.setSigned(updateTraceabilityOfMeat.getSigned());
+				update.setStartdate(updateTraceabilityOfMeat.getStartdate());
+				update.setUser(updateTraceabilityOfMeat.getUser());
+				
+				return this.traceabilityOfMeatRepository.save(update);
+			}
 		}else {
 			return null;
 		}
