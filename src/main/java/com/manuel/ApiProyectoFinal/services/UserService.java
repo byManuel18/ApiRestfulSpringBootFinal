@@ -4,11 +4,12 @@ package com.manuel.ApiProyectoFinal.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 /*import org.springframework.data.repository.query.parser.Part.IgnoreCaseType;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;*/
-import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatcher;*/
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,13 @@ import java.util.Map;
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Value("${spring.application.cloud_name}")
+	private String cloud_name;
+	@Value("${spring.application.api_key}")
+	private String api_key;
+	@Value("${spring.application.api_secret}")
+	private String api_secret;
 	
 	public boolean existEmail(String email) {
 		/*GenericPropertyMatcher gpm=GenericPropertyMatcher.of(null);
@@ -74,9 +82,9 @@ public class UserService {
 		}
 		if(newUser.getAvatar()!=null&&newUser.getAvatar().length()>0) {
 			Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-					"cloud_name", "dplfcuv7k",
-					"api_key", "446249413969957",
-					"api_secret", "ypJ3kBbYQoiZ0zyzuUiyCRgg6A8"));
+					"cloud_name", cloud_name,
+					"api_key", api_key,
+					"api_secret", api_secret));
 			
 			try {
 				Map<String,Object> uploadResult=cloudinary.uploader().upload(newUser.getAvatar(), ObjectUtils.asMap("public_id",newUserAux.getUid(),
@@ -141,9 +149,9 @@ public class UserService {
 				FirebaseAuth.getInstance().deleteUser(uid);
 				
 				Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-						"cloud_name", "dplfcuv7k",
-						"api_key", "446249413969957",
-						"api_secret", "ypJ3kBbYQoiZ0zyzuUiyCRgg6A8"));
+						"cloud_name", cloud_name,
+						"api_key", api_key,
+						"api_secret", api_secret));
 				String url=to_delete.get().getAvatar();
 				if(url!=null&&url.length()>0) {
 					Map<String, Object> mapp=cloudinary.uploader().destroy("Users/"+to_delete.get().getUid(),  ObjectUtils.asMap("resource_type","image"));
@@ -248,9 +256,9 @@ public class UserService {
 				
 				if(!to_updated_user.getAvatar().equals(u.getAvatar())) {
 					Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-							"cloud_name", "dplfcuv7k",
-							"api_key", "446249413969957",
-							"api_secret", "ypJ3kBbYQoiZ0zyzuUiyCRgg6A8"));
+							"cloud_name", cloud_name,
+							"api_key", api_key,
+							"api_secret", api_secret));
 					if(u.getAvatar().equals("")&&!to_updated_user.getAvatar().equals("")) {
 						try {
 							Map<String, Object> mapp=cloudinary.uploader().destroy("Users/"+to_updated_user.getUid(),  ObjectUtils.asMap("resource_type","image"));
