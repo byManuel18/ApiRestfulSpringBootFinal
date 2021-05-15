@@ -57,7 +57,7 @@ public class TemperatureRecordService {
 				toUp.setTemperature(updateTemperatureRecord.getTemperature());
 				toUp.setUser(updateTemperatureRecord.getUser());
 				
-				return this.temperatureRecordRepository.save(toUp);
+				return this.temperatureRecordRepository.save(updateTemperatureRecord);
 			}
 		}else {
 			return null;
