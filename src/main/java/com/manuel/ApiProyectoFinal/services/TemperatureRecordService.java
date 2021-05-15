@@ -20,11 +20,11 @@ import com.manuel.ApiProyectoFinal.repositories.UserRepository;
 public class TemperatureRecordService {
 	
 	@Autowired
-	private TemperatureRecordRepository temperatureRecordRepository;
+	 TemperatureRecordRepository temperatureRecordRepository;
 	@Autowired
-	private UserRepository userRepository;
+	 UserRepository userRepository;
 	@Autowired
-	private ApplianceRepository applianceRepository;
+	 ApplianceRepository applianceRepository;
 	
 	public TemperatureRecord createTemperatureRecord(TemperatureRecord newTemperatureRecord) {
 		
@@ -50,19 +50,13 @@ public class TemperatureRecordService {
 			if(this.temperatureRecordRepository.ExisttemperatureRecordUpdate(updateTemperatureRecord.getDate(),updateTemperatureRecord.getUser().getUid(),updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getId())>0) {
 				return null;
 			}else {
-				/*TemperatureRecord toUp=toupdate.get();
+				TemperatureRecord toUp=toupdate.get();
 				toUp.setAppliance(updateTemperatureRecord.getAppliance());
 				toUp.setDate(updateTemperatureRecord.getDate());
 				toUp.setSigned(updateTemperatureRecord.getSigned());
 				toUp.setTemperature(updateTemperatureRecord.getTemperature());
-				toUp.setUser(updateTemperatureRecord.getUser());*/
-				Date fecha=Date.valueOf("2001-01-01");
-				if(this.temperatureRecordRepository.Update(fecha,20L,1L,2.2,72L)>0) {
-					return updateTemperatureRecord;
-				}else {
-					return null;
-				}
-				//return this.temperatureRecordRepository.save(updateTemperatureRecord);
+				toUp.setUser(updateTemperatureRecord.getUser());
+				return this.temperatureRecordRepository.save(updateTemperatureRecord);
 			}
 		}else {
 			return null;
