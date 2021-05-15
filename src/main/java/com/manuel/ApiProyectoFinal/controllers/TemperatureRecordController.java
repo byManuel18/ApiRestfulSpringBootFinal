@@ -46,9 +46,9 @@ public class TemperatureRecordController {
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
 	public ResponseEntity<TemperatureRecord> updateTemperatureRecord(@Valid @RequestBody TemperatureRecord updateTemperatureRecord){
-		System.out.println(updateTemperatureRecord);
-		//return new ResponseEntity<TemperatureRecord>(this.temperatureRecordService.updateTemperatureRecord(updateTemperatureRecord),new HttpHeaders(),HttpStatus.OK);
-		return new ResponseEntity<TemperatureRecord>(updateTemperatureRecord,new HttpHeaders(),HttpStatus.OK);
+		
+		return new ResponseEntity<TemperatureRecord>(this.temperatureRecordService.updateTemperatureRecord(updateTemperatureRecord),new HttpHeaders(),HttpStatus.OK);
+		
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)

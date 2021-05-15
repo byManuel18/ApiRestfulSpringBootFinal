@@ -56,7 +56,8 @@ public class TemperatureRecordService {
 				toUp.setSigned(updateTemperatureRecord.getSigned());
 				toUp.setTemperature(updateTemperatureRecord.getTemperature());
 				toUp.setUser(updateTemperatureRecord.getUser());*/
-				if(this.temperatureRecordRepository.Update(updateTemperatureRecord.getDate(), updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getSigned().getId(),updateTemperatureRecord.getTemperature(),updateTemperatureRecord.getId())>0) {
+				Date fecha=Date.valueOf("2001-01-01");
+				if(this.temperatureRecordRepository.Update(fecha,20L,1L,2.2,72L)>0) {
 					return updateTemperatureRecord;
 				}else {
 					return null;
