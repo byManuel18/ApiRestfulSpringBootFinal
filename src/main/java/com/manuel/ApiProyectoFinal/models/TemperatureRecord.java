@@ -32,7 +32,7 @@ public class TemperatureRecord {
 	private Date date;
 	
 	@NotBlank
-	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
+	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},fetch=FetchType.EAGER)
 	@JoinColumn(name="id_appliance")
 	private Appliance appliance;
 	
