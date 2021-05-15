@@ -50,14 +50,18 @@ public class TemperatureRecordService {
 			if(this.temperatureRecordRepository.ExisttemperatureRecordUpdate(updateTemperatureRecord.getDate(),updateTemperatureRecord.getUser().getUid(),updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getId())>0) {
 				return null;
 			}else {
-				TemperatureRecord toUp=toupdate.get();
+				/*TemperatureRecord toUp=toupdate.get();
 				toUp.setAppliance(updateTemperatureRecord.getAppliance());
 				toUp.setDate(updateTemperatureRecord.getDate());
 				toUp.setSigned(updateTemperatureRecord.getSigned());
 				toUp.setTemperature(updateTemperatureRecord.getTemperature());
-				toUp.setUser(updateTemperatureRecord.getUser());
-				
-				return this.temperatureRecordRepository.save(updateTemperatureRecord);
+				toUp.setUser(updateTemperatureRecord.getUser());*/
+				if(this.temperatureRecordRepository.Update(updateTemperatureRecord.getDate(), updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getSigned().getId(),updateTemperatureRecord.getTemperature(),updateTemperatureRecord.getId())>0) {
+					return updateTemperatureRecord;
+				}else {
+					return null;
+				}
+				//return this.temperatureRecordRepository.save(updateTemperatureRecord);
 			}
 		}else {
 			return null;
