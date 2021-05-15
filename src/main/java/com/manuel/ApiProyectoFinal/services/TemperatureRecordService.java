@@ -50,9 +50,7 @@ public class TemperatureRecordService {
 			if(this.temperatureRecordRepository.ExisttemperatureRecordUpdate(updateTemperatureRecord.getDate(),updateTemperatureRecord.getUser().getUid(),updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getId())>0) {
 				return null;
 			}else {
-				System.out.println(updateTemperatureRecord);
 				TemperatureRecord toUp=toupdate.get();
-				System.out.println(toUp);
 				toUp.setAppliance(updateTemperatureRecord.getAppliance());
 				toUp.setDate(updateTemperatureRecord.getDate());
 				toUp.setSigned(updateTemperatureRecord.getSigned());
