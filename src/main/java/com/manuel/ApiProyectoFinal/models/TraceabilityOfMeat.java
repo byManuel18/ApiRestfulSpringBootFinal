@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -54,6 +56,7 @@ public class TraceabilityOfMeat {
 	@JoinColumn(name="id_meatrecord")
 	private MeatRecord meatrecord;
 	
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToMany(mappedBy = "listTraceabilityOfMeat")
 	private List<Production> productionsTracOfMeat=new ArrayList<Production>();
 	
