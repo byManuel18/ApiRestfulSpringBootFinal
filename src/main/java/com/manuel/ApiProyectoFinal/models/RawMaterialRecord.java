@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name="rawmaterialrecord")
@@ -61,6 +64,7 @@ public class RawMaterialRecord {
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToMany(mappedBy = "listRawMaterialRecord")
 	private List<Production> productionRawMaterial=new ArrayList<Production>();
 	
