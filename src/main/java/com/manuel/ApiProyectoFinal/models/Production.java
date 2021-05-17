@@ -53,7 +53,7 @@ public class Production {
       joinColumns = @JoinColumn(name = "traceabilityofmeat_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
-    @ManyToMany(cascade = { CascadeType.MERGE,CascadeType.REMOVE})
+    @ManyToMany(cascade = CascadeType.MERGE)
 	private List<TraceabilityOfMeat> listTraceabilityOfMeat=new ArrayList<TraceabilityOfMeat>();
 	
 	
@@ -61,7 +61,7 @@ public class Production {
       joinColumns = @JoinColumn(name = "rawmaterialrecord_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
       referencedColumnName = "id"))
-    @ManyToMany(cascade = { CascadeType.MERGE,CascadeType.REMOVE})
+    @ManyToMany(cascade = CascadeType.MERGE)
 	private List<RawMaterialRecord> listRawMaterialRecord=new ArrayList<RawMaterialRecord>();
 	
 	public Production() {

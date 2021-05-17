@@ -63,6 +63,7 @@ public class TraceabilityOfMeatService {
 	public boolean deleteTraceabilityOfMeatRepository(Long id) {
 		Optional<TraceabilityOfMeat> todelete=this.traceabilityOfMeatRepository.findById(id);
 		if(todelete.isPresent()) {
+			this.traceabilityOfMeatRepository.deleteProductionTrazMeat(id);
 			this.traceabilityOfMeatRepository.delete(todelete.get());
 			return true;
 		}else {
