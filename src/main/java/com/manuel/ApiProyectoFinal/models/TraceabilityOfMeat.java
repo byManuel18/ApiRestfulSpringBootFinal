@@ -54,7 +54,7 @@ public class TraceabilityOfMeat {
 	
 	@OneToOne
 	@JoinColumn(name="id_meatrecord")
-	private MeatRecord meatrecord;
+	private MeatRecord meatrecord; 
 	
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToMany(mappedBy = "listTraceabilityOfMeat")
