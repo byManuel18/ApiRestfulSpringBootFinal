@@ -26,8 +26,8 @@ public interface TraceabilityOfMeatReppository extends JpaRepository<Traceabilit
 	Page<TraceabilityOfMeat> findByStartdateAndUser(Date startdate,User user,Pageable pageable);
 	Page<TraceabilityOfMeat> findByEnddateAndUser(Date enddate,User user,Pageable pageable);
 	
-	@Transactional
+	/*@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query(value="DELETE FROM production_tracmeat WHERE traceabilityofmeat_id=?1",nativeQuery = true)
-	void deleteProductionTrazMeat(Long id_trazOfMeat);
+	void deleteProductionTrazMeat(Long id_trazOfMeat);*/
 }

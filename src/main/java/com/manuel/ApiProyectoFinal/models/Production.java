@@ -17,6 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name="production")
 public class Production {
@@ -48,7 +51,7 @@ public class Production {
 	@JoinColumn(name="id_signed")
 	private Signed signed;
 	
-	
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "production_tracmeat", 
       joinColumns = @JoinColumn(name = "traceabilityofmeat_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
@@ -56,7 +59,7 @@ public class Production {
     @ManyToMany(cascade = CascadeType.MERGE)
 	private List<TraceabilityOfMeat> listTraceabilityOfMeat=new ArrayList<TraceabilityOfMeat>();
 	
-	
+	@OnDelete(action = OnDeleteAction.CASCADE)
     @JoinTable(name = "production_rawmaterial", 
       joinColumns = @JoinColumn(name = "rawmaterialrecord_id", referencedColumnName = "id"), 
       inverseJoinColumns = @JoinColumn(name = "production_id", 
