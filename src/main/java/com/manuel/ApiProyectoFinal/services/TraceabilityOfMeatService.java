@@ -27,7 +27,7 @@ public class TraceabilityOfMeatService {
 			return null;
 		}else {
 			TraceabilityOfMeat toadd=new TraceabilityOfMeat();
-			toadd.setArrivaldate(newTraceabilityOfMeat.getArrivaldate());
+			toadd.setArrivaldate(newTraceabilityOfMeat.getMeatrecord().getDate());
 			toadd.setEnddate(newTraceabilityOfMeat.getEnddate());
 			toadd.setMeatrecord(newTraceabilityOfMeat.getMeatrecord());
 			toadd.setSigned(newTraceabilityOfMeat.getSigned());
@@ -46,7 +46,7 @@ public class TraceabilityOfMeatService {
 				return null;
 			}else {
 				TraceabilityOfMeat update=toUpdate.get();
-				update.setArrivaldate(updateTraceabilityOfMeat.getArrivaldate());
+				update.setArrivaldate(updateTraceabilityOfMeat.getMeatrecord().getDate());
 				update.setEnddate(updateTraceabilityOfMeat.getEnddate());
 				update.setMeatrecord(updateTraceabilityOfMeat.getMeatrecord());
 				update.setSigned(updateTraceabilityOfMeat.getSigned());

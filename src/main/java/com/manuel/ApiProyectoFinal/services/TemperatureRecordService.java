@@ -51,7 +51,6 @@ public class TemperatureRecordService {
 				return null;
 			}else {
 				TemperatureRecord toUp=toupdate.get();
-				System.out.println(toUp);
 				toUp.setAppliance(updateTemperatureRecord.getAppliance());
 				toUp.setDate(updateTemperatureRecord.getDate());
 				toUp.setSigned(updateTemperatureRecord.getSigned());
