@@ -28,8 +28,11 @@ import com.manuel.ApiProyectoFinal.enums.WatterRecordSearch;
 import com.manuel.ApiProyectoFinal.models.WatterRecord;
 import com.manuel.ApiProyectoFinal.services.WatterRecordService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/watterrecord")
+@Api(tags = "REGISTRO_AGUA")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WatterRecordController {
 	

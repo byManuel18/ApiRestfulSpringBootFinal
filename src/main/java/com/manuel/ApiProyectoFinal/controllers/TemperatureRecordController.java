@@ -28,8 +28,11 @@ import com.manuel.ApiProyectoFinal.enums.SearchByTemperatureRecord;
 import com.manuel.ApiProyectoFinal.models.TemperatureRecord;
 import com.manuel.ApiProyectoFinal.services.TemperatureRecordService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/temperaturerecord")
+@Api(tags = "REGISTROS_TEMPERATURA")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class TemperatureRecordController {
 	

@@ -21,6 +21,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
 import com.google.firebase.auth.UserRecord.UpdateRequest;
 import com.manuel.ApiProyectoFinal.enums.SearchByUsers;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.UserRepository;
 import java.io.IOException;
@@ -293,7 +294,7 @@ public class UserService {
 		if(userselected.isPresent()) {
 			return userselected.get();
 		}else {
-			return null;
+			throw new RecordNotFoundException("No User exist for given uid", uid);
 		}
 	}
 	

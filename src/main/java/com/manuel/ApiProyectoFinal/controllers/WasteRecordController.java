@@ -26,8 +26,11 @@ import com.manuel.ApiProyectoFinal.enums.SearchByWasteRecord;
 import com.manuel.ApiProyectoFinal.models.WasteRecord;
 import com.manuel.ApiProyectoFinal.services.WasteRecordService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/wasterecord")
+@Api(tags = "REGISTRO_DESECHOS")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class WasteRecordController {
 	

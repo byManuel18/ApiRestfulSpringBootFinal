@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.models.Signed;
 import com.manuel.ApiProyectoFinal.services.SignedService;
 
+import io.swagger.annotations.Api;
+
 
 @RestController
 @RequestMapping("/signed")
+@Api(tags = "FIRMADO")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class SignedController {
 	

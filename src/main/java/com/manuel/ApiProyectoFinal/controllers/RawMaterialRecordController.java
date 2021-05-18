@@ -29,8 +29,11 @@ import com.manuel.ApiProyectoFinal.enums.SearchByRawMaterialRecord;
 import com.manuel.ApiProyectoFinal.models.RawMaterialRecord;
 import com.manuel.ApiProyectoFinal.services.RawMaterialRecordService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/rawmaterialrecord")
+@Api(tags = "REGISTRO_MATERIA_PRIMA")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class RawMaterialRecordController {
 	

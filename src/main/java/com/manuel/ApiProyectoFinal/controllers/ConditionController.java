@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.models.Condition;
 import com.manuel.ApiProyectoFinal.services.ConditionService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/condition")
+@Api(tags = "CONDICION")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class ConditionController {
 	

@@ -28,12 +28,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.SearchByUsers;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.services.UserService;
+
+import io.swagger.annotations.Api;
 
 
 @RestController
 @RequestMapping("/user")
+@Api(tags = "USUARIOS")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class UserController {
 	@Autowired
@@ -47,7 +51,7 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/{uid}")
-	public ResponseEntity<User> getUserByUid(@PathVariable("uid") String uid){
+	public ResponseEntity<User> getUserByUid(@PathVariable("uid") String uid) throws RecordNotFoundException{
 		User selected=this.userService.getUserByUid(uid);
 		return new ResponseEntity<User>(selected,new HttpHeaders(),HttpStatus.OK);
 	}

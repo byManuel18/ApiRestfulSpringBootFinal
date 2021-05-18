@@ -26,8 +26,11 @@ import com.manuel.ApiProyectoFinal.enums.SearchByMeatRecord;
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
 import com.manuel.ApiProyectoFinal.services.MeatRecordService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/meatrecord")
+@Api(tags = "REGISTRO_CARNE")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class MeatRecordController {
 	

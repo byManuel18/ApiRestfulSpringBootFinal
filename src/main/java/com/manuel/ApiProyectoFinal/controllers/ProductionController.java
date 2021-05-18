@@ -30,8 +30,11 @@ import com.manuel.ApiProyectoFinal.enums.SearchByProduction;
 import com.manuel.ApiProyectoFinal.models.Production;
 import com.manuel.ApiProyectoFinal.services.ProductionService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/production")
+@Api(tags = "REGISTRO_PRODUCCION")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class ProductionController {
 	

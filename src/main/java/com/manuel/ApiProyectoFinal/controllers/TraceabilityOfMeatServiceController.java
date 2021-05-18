@@ -28,9 +28,12 @@ import com.manuel.ApiProyectoFinal.enums.SearchByTraceabilityOfMeat;
 import com.manuel.ApiProyectoFinal.models.TraceabilityOfMeat;
 import com.manuel.ApiProyectoFinal.services.TraceabilityOfMeatService;
 
+import io.swagger.annotations.Api;
+
 
 @RestController
 @RequestMapping("/traceabilityofmeat")
+@Api(tags = "TRAZABILIDAD_CARNE")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class TraceabilityOfMeatServiceController {
 	
