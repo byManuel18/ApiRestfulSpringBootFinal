@@ -33,6 +33,7 @@ import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.services.UserService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
@@ -45,19 +46,22 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getTotalPages/{size}")
+	@ApiOperation(value = "Obtiene el número de páginas de usuarios",notes = "")
 	public ResponseEntity<Integer> getTotalPages(@PathVariable("size") int size){
 		return new ResponseEntity<Integer>(this.userService.getTotalPages(size),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/{uid}")
-	public ResponseEntity<User> getUserByUid(@PathVariable("uid") String uid) throws RecordNotFoundException{
+	@ApiOperation(value = "Obtener usuario mediante su uid")
+	public ResponseEntity<User> getUserByUid(@PathVariable("uid") String uid){
 		User selected=this.userService.getUserByUid(uid);
 		return new ResponseEntity<User>(selected,new HttpHeaders(),HttpStatus.OK);
 	}
 
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getAllandSearch/{page}/{size}")
+	@ApiOperation(value = "Obtener Lista Usuarios",notes = "Muestra una lista de usuarios mediante paginación y filtro personalizado")
 	public ResponseEntity<List<User>> getAllUserByandOrder(@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,
 			@RequestParam(name="name",defaultValue ="") String name,@RequestParam(name="email",defaultValue ="") String email,@RequestParam(name="uid",defaultValue ="") String uid
 			,@RequestParam(name="phone",defaultValue ="") String phone){
@@ -111,6 +115,7 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping("/{password}")
+	@ApiOperation(value = "Crea un usuario",notes = "Crea un usuario registrandolo en Firebase Auth devolviendo el Usuario creado")
 	public ResponseEntity<User> createUSer(@Valid @RequestBody User u,@PathVariable("password") String password){
 		User created= null;
 		created =this.userService.cretateUser(u,password);
@@ -119,6 +124,7 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{uid}")
+	@ApiOperation(value = "Eliminar un Usuario",notes = "Elimina un Usuario mediante su uid eliminando su cuanta totalmente. Devuelve TRUE si se ha eliminado y FALSE si no se a podido encontrar")
 	public ResponseEntity<Boolean> deleteUser(@PathVariable("uid") String uid){
 		
 		if(this.userService.deleteUser(uid)) {
@@ -133,6 +139,7 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/activate/{uid}")
+	@ApiOperation(value = "Activar Usuario",notes = "Activa un usuario para que puede logearse. Devuelve TRUE si se ha activado o FALSE si no se ha podido")
 	public ResponseEntity<Boolean> activateUser(@PathVariable("uid") String uid){
 		boolean change=this.userService.activateUser(uid);
 		return new ResponseEntity<Boolean>(change,new HttpHeaders(),HttpStatus.OK);
@@ -140,6 +147,7 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/disable/{uid}")
+	@ApiOperation(value = "Desactivar Usuario",notes = "Desactiva un usuario para que no puede logearse. Devuelve TRUE si se ha desactivado o FALSE si no se ha podido")
 	public ResponseEntity<Boolean> disableUser(@PathVariable("uid") String uid){
 		boolean change=this.userService.disabledUser(uid);
 		return new ResponseEntity<Boolean>(change,new HttpHeaders(),HttpStatus.OK);
@@ -147,12 +155,14 @@ public class UserController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping("/{password}")
+	@ApiOperation(value = "Actualiza un usuario",notes = "Actializa por completo un usuario devolviendo TRUE si ha podido o FALSE si no lo ha encontrado")
 	public ResponseEntity<Boolean> updateUser(@Valid @RequestBody User u,@PathVariable("password") String password){
 		boolean updated=this.userService.updateUser(u, password);
 		return new ResponseEntity<Boolean>(updated,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/exist/{email}")
+	@ApiOperation(value = "Comprobar si  Existe un email Registrado",notes = "Comprueba si un usuario existe devolviendo TRUE si existe o FALSE si no existe")
 	public ResponseEntity<Boolean> existEmail(@PathVariable("email") String email){
 		boolean exist=this.userService.existEmail(email);
 		return new ResponseEntity<Boolean>(exist,new HttpHeaders(),HttpStatus.OK);

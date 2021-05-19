@@ -15,6 +15,9 @@ public interface WasteRecordRepository extends JpaRepository<WasteRecord, Long>{
 	@Query(value="SELECT COUNT(*) FROM wasterecord WHERE date=?1 AND id_user=?2",
 			nativeQuery = true)
 	int ExistWasteRecord(Date date, String uid);
+	@Query(value="SELECT COUNT(*) FROM wasterecord WHERE date=?1 AND id_user=?2 AND id!=?3",
+			nativeQuery = true)
+	int ExistWasteRecordUpdate(Date date, String uid,Long id);
 	Page<WasteRecord> findByUser(User user, Pageable pageable);
 	Page<WasteRecord> findByDateAndUser(Date date,User user,Pageable pageable);
 	Page<WasteRecord> findByPersonStartsWithIgnoreCaseAndUser(String person,User user,Pageable pageable);

@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.manuel.ApiProyectoFinal.enums.WatterRecordSearch;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.models.WatterRecord;
 import com.manuel.ApiProyectoFinal.repositories.UserRepository;
@@ -24,7 +26,7 @@ public class WatterRecordService {
 	
 	public WatterRecord createWatterRecord(WatterRecord newWatterRecord) {
 		if(this.watterRecordRepository.ExistWatterRecord(newWatterRecord.getDate(),newWatterRecord.getUser().getUid(),newWatterRecord.getSamplingpoint().toUpperCase())>0) {
-			return null;
+			throw new ExistingObjectException("There is already a Watter Record similar to the one introduced");
 		}else {
 			WatterRecord toadd=new WatterRecord();
 			toadd.setCondition(newWatterRecord.getCondition());
@@ -42,7 +44,7 @@ public class WatterRecordService {
 		
 		if(toupdate.isPresent()) {
 			if(this.watterRecordRepository.ExistWatterRecordUpdate(updateWatterRecord.getDate(),updateWatterRecord.getUser().getUid(),updateWatterRecord.getSamplingpoint().toUpperCase(),updateWatterRecord.getId())>0) {
-				return null;
+				throw new ExistingObjectException("There is already a Watter Record similar to the one introduced");
 			}else {
 				WatterRecord upWatt=toupdate.get();
 				upWatt.setCondition(updateWatterRecord.getCondition());
@@ -55,7 +57,7 @@ public class WatterRecordService {
 			}
 			/**/
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Watter Record exist for given id",updateWatterRecord.getId().toString());
 		}
 	}
 	

@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.Appliance;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.ApplianceRepository;
@@ -21,7 +23,7 @@ public class ApplianceService {
 	private UserRepository userRepository;
 	public Appliance createAppliance(Appliance newAppliance) {
 		if(this.applianceRepository.ExistAppliance(newAppliance.getName().toUpperCase(),newAppliance.getUser().getUid())>0) {
-			return null;
+			throw new ExistingObjectException("There is already a appliance similar to the one introduced");
 		}else {
 			Appliance toadd=new Appliance();
 			toadd.setName(newAppliance.getName().toUpperCase());
@@ -35,7 +37,7 @@ public class ApplianceService {
 			Optional<Appliance> toUpdate=this.applianceRepository.findById(updateAppliance.getId());
 			if(toUpdate.isPresent()) {
 				if(this.applianceRepository.ExistAppliance(updateAppliance.getName().toUpperCase(), updateAppliance.getUser().getUid())>0) {
-					return null;
+					throw new ExistingObjectException("There is already a appliance similar to the one introduced");
 				}else {
 					Appliance toUp=toUpdate.get();
 					toUp.setName(updateAppliance.getName().toUpperCase());
@@ -43,7 +45,7 @@ public class ApplianceService {
 					return this.applianceRepository.save(toUp);
 				}
 			}else {
-				return null;
+				throw new RecordNotFoundException("No Apliance exist for given id", updateAppliance.getId().toString());
 			}
 			
 	}

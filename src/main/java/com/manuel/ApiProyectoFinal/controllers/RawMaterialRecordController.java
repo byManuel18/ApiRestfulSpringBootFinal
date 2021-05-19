@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.SearchByRawMaterialRecord;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.RawMaterialRecord;
 import com.manuel.ApiProyectoFinal.services.RawMaterialRecordService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/rawmaterialrecord")
@@ -42,6 +44,7 @@ public class RawMaterialRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
+	@ApiOperation(value = "Obtiene el número de páginas",notes = "Optiene el número de páginas del Registro de Materia Prima mediante el tamaño de la página, un usuario y el filtro deseado")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "lote", defaultValue ="") String lote,
 			@RequestParam(name = "commodity", defaultValue ="") String commodity,@RequestParam(name = "supplier", defaultValue ="") String supplier,
 			@RequestParam(name = "arrival_date", defaultValue ="") String arrival_date,@RequestParam(name = "start_date", defaultValue ="") String start_date,
@@ -75,6 +78,7 @@ public class RawMaterialRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
+	@ApiOperation(value = "Muestra una Lista de Registos",notes = "Muestra una lista de registros de materia prima por usuario con paginación y filtro deseado")
 	public ResponseEntity<List<RawMaterialRecord>> getAllBy(@PathVariable("uid") String uid,@PathVariable("size") int size,@PathVariable("page") int page,@RequestParam(name = "lote", defaultValue ="") String lote,
 			@RequestParam(name = "commodity", defaultValue ="") String commodity,@RequestParam(name = "supplier", defaultValue ="") String supplier,
 			@RequestParam(name = "arrival_date", defaultValue ="") String arrival_date,@RequestParam(name = "start_date", defaultValue ="") String start_date,
@@ -148,18 +152,21 @@ public class RawMaterialRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
+	@ApiOperation(value = "Crea un Registro de Materia Prima",notes = "Crea un Registro de Materia Prima decolviendo el Registro creado con su id")
 	public ResponseEntity<RawMaterialRecord> createRawMaterialRecord(@Valid @RequestBody RawMaterialRecord newRawMaterialRecord){
 		return new ResponseEntity<RawMaterialRecord>(this.rawMaterialRecordService.createRawMaterialRecord(newRawMaterialRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
-	public ResponseEntity<RawMaterialRecord> updateRawMaterialRecord(@Valid @RequestBody RawMaterialRecord updateRawMaterialRecord){
+	@ApiOperation(value = "Actualiza un Registro de Materia Prima",notes = "Actualiza un Registro de Materia Prima decolviendo el Registro actualizado. Lanza excepción si no lo ha encontrado")
+	public ResponseEntity<RawMaterialRecord> updateRawMaterialRecord(@Valid @RequestBody RawMaterialRecord updateRawMaterialRecord) throws RecordNotFoundException{
 		return new ResponseEntity<RawMaterialRecord>(this.rawMaterialRecordService.updateRawMaterialRecord(updateRawMaterialRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Eliminar un Registro de Materia Prima",notes = "Eliminar un Registro de Materia Prima. Devuelve TRUE si lo ha eliminado y FALSE si no lo ha encontrado")
 	public ResponseEntity<Boolean> deleteRawMaterialRecord(@PathVariable("id") Long id){
 		boolean deleted=this.rawMaterialRecordService.deleteRawMaterialRecord(id);
 		return new ResponseEntity<Boolean>(deleted,new HttpHeaders(),HttpStatus.OK);

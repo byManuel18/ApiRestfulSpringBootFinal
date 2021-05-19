@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.SearchByTraceabilityOfMeat;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.TraceabilityOfMeat;
 import com.manuel.ApiProyectoFinal.services.TraceabilityOfMeatService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
@@ -42,24 +45,28 @@ public class TraceabilityOfMeatServiceController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
-	public ResponseEntity<TraceabilityOfMeat> createTraceabilityOfMeat(@Valid @RequestBody TraceabilityOfMeat newTraceabilityOfMeat){
+	@ApiOperation(value = "Crear Registro Trazabilidad Carne",notes = "Crea un registro de trazabilidad de carne devolviendo el registro creado con su id. Lanza excepción si ya existe uno similar")
+	public ResponseEntity<TraceabilityOfMeat> createTraceabilityOfMeat(@Valid @RequestBody TraceabilityOfMeat newTraceabilityOfMeat)throws ExistingObjectException{
 		return new ResponseEntity<TraceabilityOfMeat>(this.traceabilityOfMeatService.createTraceabilityOfMeat(newTraceabilityOfMeat),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
-	public ResponseEntity<TraceabilityOfMeat> updateTraceabilityOfMeat(@Valid @RequestBody TraceabilityOfMeat updateTraceabilityOfMeat){
+	@ApiOperation(value = "Actualiza Registro Trazabilidad Carne",notes = "Actualiza un registro de trazabilidad de carne devolviendo el registro actualizado. Lanza excepción si ya existe uno similar o no existe")
+	public ResponseEntity<TraceabilityOfMeat> updateTraceabilityOfMeat(@Valid @RequestBody TraceabilityOfMeat updateTraceabilityOfMeat)throws ExistingObjectException,RecordNotFoundException{
 		return new ResponseEntity<TraceabilityOfMeat>(this.traceabilityOfMeatService.updateTraceabilityOfMeat(updateTraceabilityOfMeat),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Eliminar Registro Trazabilidad Carne",notes = "Elimina un registro mediante su id")
 	public ResponseEntity<Boolean> deleteTraceabilityOfMeat(@PathVariable("id") Long id){
 		return new ResponseEntity<Boolean>(this.traceabilityOfMeatService.deleteTraceabilityOfMeatRepository(id),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
+	@ApiOperation(value = "Obtiene las páginas del Registro Trazabilidad de Carne",notes = "Obtiene el número de páginas que tiene el registro mediante un usuario, paginación y filtro deseado")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size,@RequestParam(name = "arrivaldate", defaultValue ="") String arrivaldate,
 			@RequestParam(name = "startdate", defaultValue ="") String startdate,@RequestParam(name = "enddate", defaultValue ="") String enddate){
 		
@@ -85,6 +92,7 @@ public class TraceabilityOfMeatServiceController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
+	@ApiOperation(value = "Muestra una lista del Registro de la Trazabilidad de la Carne",notes = "Muestra una lista del registro de un usuario mediante paaginacióny filtro deseado")
 	public ResponseEntity<List<TraceabilityOfMeat>> getAllBy(@PathVariable("uid") String uid,@PathVariable("page") int page,@PathVariable("size") int size,@RequestParam(name = "arrivaldate", defaultValue ="") String arrivaldate,
 			@RequestParam(name = "startdate", defaultValue ="") String startdate,@RequestParam(name = "enddate", defaultValue ="") String enddate,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){
 		String cadena="";

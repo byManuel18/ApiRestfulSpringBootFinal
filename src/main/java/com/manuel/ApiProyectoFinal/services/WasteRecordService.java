@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.manuel.ApiProyectoFinal.enums.SearchByWasteRecord;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.models.WasteRecord;
 import com.manuel.ApiProyectoFinal.repositories.UserRepository;
@@ -25,7 +27,7 @@ public class WasteRecordService {
 		
 		if(this.wasteRecordRepository.ExistWasteRecord(newWasteRecord.getDate(), newWasteRecord.getUser().getUid())>0){
 			
-			return null;
+			throw new ExistingObjectException("There is already a signed similar to the one introduced");
 			
 		}else {
 			WasteRecord tocreate=new WasteRecord();
@@ -42,15 +44,20 @@ public class WasteRecordService {
 		Optional<WasteRecord> toUpdate=this.wasteRecordRepository.findById(updateWasteRecord.getId());
 		
 		if(toUpdate.isPresent()){
-			WasteRecord toUp=toUpdate.get();
-			toUp.setAmount(updateWasteRecord.getAmount());
-			toUp.setDate(updateWasteRecord.getDate());
-			toUp.setPerson(updateWasteRecord.getPerson().toUpperCase());
-			toUp.setSigned(updateWasteRecord.getSigned());
-			toUp.setUser(updateWasteRecord.getUser());
-			return this.wasteRecordRepository.save(toUp);
+			if(this.wasteRecordRepository.ExistWasteRecordUpdate(updateWasteRecord.getDate(), updateWasteRecord.getUser().getUid(),updateWasteRecord.getId())>0) {
+				throw new ExistingObjectException("There is already a signed similar to the one introduced");
+			}else {
+				WasteRecord toUp=toUpdate.get();
+				toUp.setAmount(updateWasteRecord.getAmount());
+				toUp.setDate(updateWasteRecord.getDate());
+				toUp.setPerson(updateWasteRecord.getPerson().toUpperCase());
+				toUp.setSigned(updateWasteRecord.getSigned());
+				toUp.setUser(updateWasteRecord.getUser());
+				return this.wasteRecordRepository.save(toUp);
+			}
+			
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Waste Record exist for given id",updateWasteRecord.getId().toString());
 		}
 	}
 	

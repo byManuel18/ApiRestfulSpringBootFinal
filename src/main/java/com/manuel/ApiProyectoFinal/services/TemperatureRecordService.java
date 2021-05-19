@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.manuel.ApiProyectoFinal.enums.SearchByTemperatureRecord;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.Appliance;
 import com.manuel.ApiProyectoFinal.models.TemperatureRecord;
 import com.manuel.ApiProyectoFinal.models.User;
@@ -29,7 +31,7 @@ public class TemperatureRecordService {
 	public TemperatureRecord createTemperatureRecord(TemperatureRecord newTemperatureRecord) {
 		
 		if(this.temperatureRecordRepository.ExisttemperatureRecordCreate(newTemperatureRecord.getDate(),newTemperatureRecord.getUser().getUid(),newTemperatureRecord.getAppliance().getId())>0) {
-			return null;
+			throw new ExistingObjectException("There is already a Temperature Record similar to the one introduced");
 		}else {
 			TemperatureRecord toadd=new TemperatureRecord();
 			toadd.setAppliance(newTemperatureRecord.getAppliance());
@@ -48,7 +50,7 @@ public class TemperatureRecordService {
 		Optional<TemperatureRecord> toupdate=this.temperatureRecordRepository.findById(updateTemperatureRecord.getId());
 		if(toupdate.isPresent()) {
 			if(this.temperatureRecordRepository.ExisttemperatureRecordUpdate(updateTemperatureRecord.getDate(),updateTemperatureRecord.getUser().getUid(),updateTemperatureRecord.getAppliance().getId(),updateTemperatureRecord.getId())>0) {
-				return null;
+				throw new ExistingObjectException("There is already a Temperature Record similar to the one introduced");
 			}else {
 				TemperatureRecord toUp=toupdate.get();
 				toUp.setAppliance(updateTemperatureRecord.getAppliance());
@@ -59,7 +61,7 @@ public class TemperatureRecordService {
 			}
 			
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Temperature Record exist for given id", updateTemperatureRecord.getId().toString());
 		}
 	}
 	

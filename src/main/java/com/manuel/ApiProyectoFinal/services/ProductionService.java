@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.manuel.ApiProyectoFinal.enums.SearchByProduction;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.Production;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.ProductionRepository;
@@ -32,7 +33,6 @@ public class ProductionService {
 		toadd.setUser(newProduction.getUser());
 		toadd.setListRawMaterialRecord(newProduction.getListRawMaterialRecord());
 		toadd.setListTraceabilityOfMeat(newProduction.getListTraceabilityOfMeat());
-		System.out.println(toadd);
 		return this.productionrepository.save(toadd);
 	}
 	
@@ -49,7 +49,7 @@ public class ProductionService {
 			tosave.setListTraceabilityOfMeat(updateProduction.getListTraceabilityOfMeat());
 			return this.productionrepository.save(tosave);
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Production Record exist for given id",updateProduction.getId().toString());
 		}
 	}
 	

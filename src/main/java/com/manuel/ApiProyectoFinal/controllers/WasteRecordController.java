@@ -23,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.SearchByWasteRecord;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.WasteRecord;
 import com.manuel.ApiProyectoFinal.services.WasteRecordService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/wasterecord")
@@ -39,24 +42,28 @@ public class WasteRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
-	public ResponseEntity<WasteRecord> createWasteRecord(@Valid @RequestBody WasteRecord newWasteRecord){
+	@ApiOperation(value = "Crear Registro Residuos",notes = "Crea un registro de residuos devolviendo el registro creado con su id. Lanza excepción si existe un registro parecido")
+	public ResponseEntity<WasteRecord> createWasteRecord(@Valid @RequestBody WasteRecord newWasteRecord)throws ExistingObjectException{
 		return new ResponseEntity<WasteRecord>(this.wasteRecordService.createWasteRecord(newWasteRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
-	public ResponseEntity<WasteRecord> updateWasteRecord(@Valid @RequestBody WasteRecord updateWasteRecord){
+	@ApiOperation(value = "Actualizar Registro Residuos",notes = "Actualiza un registro de residuos devolviendo el registro actualizado. Lanza excepción si existe un registro parecido o no se ha encontrado")
+	public ResponseEntity<WasteRecord> updateWasteRecord(@Valid @RequestBody WasteRecord updateWasteRecord)throws ExistingObjectException,RecordNotFoundException{
 		return new ResponseEntity<WasteRecord>(this.wasteRecordService.updateWasteRecord(updateWasteRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Eliminar Registro Residuos",notes = "Eliminar registro mediante su id devolviendo TRUE si lo ha eliminado y FALSE si no lo ha encontrado")
 	public ResponseEntity<Boolean> deleteWasteRecord(@PathVariable("id") Long id ){
 		return new ResponseEntity<Boolean>(this.wasteRecordService.deleteWasteRecord(id),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
+	@ApiOperation(value = "Obtener páginas del Registro Residuos",notes = "Obtiene el número de páginas del registro dependiendo del usuario, la paginación y el filtro deseado")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid, @PathVariable("size") int size,
 			@RequestParam(name = "date", defaultValue ="") String date,@RequestParam(name = "person", defaultValue ="") String person){
 		SearchByWasteRecord caseSearch=SearchByWasteRecord.NO;
@@ -76,6 +83,7 @@ public class WasteRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
+	@ApiOperation(value = "Obtener lista del Registro Residuos",notes = "Muestra una lista del registro dependiendo del usuario, la paginación y el filtro deseado")
 	public ResponseEntity<List<WasteRecord>> getAllBy(@PathVariable("uid") String uid, @PathVariable("size") int size,
 			@RequestParam(name = "date", defaultValue ="") String date,@RequestParam(name = "person", defaultValue ="") String person,
 			@PathVariable("page")int page,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order){

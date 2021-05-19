@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.manuel.ApiProyectoFinal.enums.SearchByRawMaterialRecord;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.RawMaterialRecord;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.RawMaterialRecordRepository;
@@ -51,7 +52,7 @@ public class RawMaterialRecordService {
 			upt.setSupplier(updateRawMaterial.getSupplier().toUpperCase());
 			return this.rawMaterialRecordRepository.save(upt);
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Raw Material Record exist for given id", updateRawMaterial.getId().toString());
 		}
 	}
 	

@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.manuel.ApiProyectoFinal.enums.SearchByTraceabilityOfMeat;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.TraceabilityOfMeat;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.TraceabilityOfMeatReppository;
@@ -24,7 +26,7 @@ public class TraceabilityOfMeatService {
 	public TraceabilityOfMeat createTraceabilityOfMeat(TraceabilityOfMeat newTraceabilityOfMeat){
 		if(this.traceabilityOfMeatRepository.ExistTraceabilityOfMeat(newTraceabilityOfMeat.getUser().getUid(), 
 				newTraceabilityOfMeat.getMeatrecord().getId())>0) {
-			return null;
+			throw new ExistingObjectException("There is already a traceability of meat similar to the one introduced");
 		}else {
 			TraceabilityOfMeat toadd=new TraceabilityOfMeat();
 			toadd.setArrivaldate(newTraceabilityOfMeat.getMeatrecord().getDate());
@@ -43,7 +45,7 @@ public class TraceabilityOfMeatService {
 		if(toUpdate.isPresent()) {
 			if(this.traceabilityOfMeatRepository.ExistTraceabilityOfMeatUpdate(updateTraceabilityOfMeat.getUser().getUid(), 
 					updateTraceabilityOfMeat.getMeatrecord().getId(),updateTraceabilityOfMeat.getId())>0) {
-				return null;
+				throw new ExistingObjectException("There is already a traceability of meat similar to the one introduced");
 			}else {
 				TraceabilityOfMeat update=toUpdate.get();
 				update.setArrivaldate(updateTraceabilityOfMeat.getMeatrecord().getDate());
@@ -56,7 +58,7 @@ public class TraceabilityOfMeatService {
 				return this.traceabilityOfMeatRepository.save(update);
 			}
 		}else {
-			return null;
+			throw new RecordNotFoundException("No traceability of meat exist for given id", updateTraceabilityOfMeat.getId().toString());
 		}
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.manuel.ApiProyectoFinal.enums.SearchByMeatRecord;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
 import com.manuel.ApiProyectoFinal.models.User;
 import com.manuel.ApiProyectoFinal.repositories.MeatRecordRepository;
@@ -62,7 +63,7 @@ public class MeatRecordService {
 			update.setUser(updateMeatRecord.getUser());
 			return this.MeatRecordrepository.save(update);
 		}else {
-			return null;
+			throw new RecordNotFoundException("No Meat Record exist for given id",updateMeatRecord.getId().toString());
 		}
 	}
 	

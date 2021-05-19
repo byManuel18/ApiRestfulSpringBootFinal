@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.WatterRecordSearch;
+import com.manuel.ApiProyectoFinal.exceptions.ExistingObjectException;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.WatterRecord;
 import com.manuel.ApiProyectoFinal.services.WatterRecordService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/watterrecord")
@@ -41,24 +44,28 @@ public class WatterRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
-	public ResponseEntity<WatterRecord> createWatterRecord(@Valid @RequestBody WatterRecord newWatterRecord){
+	@ApiOperation(value = "Crear Registro Agua",notes = "Crea un registro de agua devolviendo el registro creado con su id. Lanza excepción si exiate un registro similar")
+	public ResponseEntity<WatterRecord> createWatterRecord(@Valid @RequestBody WatterRecord newWatterRecord)throws ExistingObjectException{
 		return new ResponseEntity<WatterRecord>(this.watterRecordService.createWatterRecord(newWatterRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
-	public ResponseEntity<WatterRecord> updateWatterRecord(@Valid @RequestBody WatterRecord updateWatterRecord){
+	@ApiOperation(value = "Actualizar Registro Agua",notes = "Actualiza un registro de agua devolviendo el registro actualizado. Lanza excepción si existe un registro similar o no lo encuentra")
+	public ResponseEntity<WatterRecord> updateWatterRecord(@Valid @RequestBody WatterRecord updateWatterRecord)throws ExistingObjectException,RecordNotFoundException{
 		return new ResponseEntity<WatterRecord>(this.watterRecordService.updateWatterRecord(updateWatterRecord),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Eliminar Registro Agua",notes = "Elimina un registro mediante su id devolviendo TRUE si lo ha eliminado o FALSE si no lo ha encontrado")
 	public ResponseEntity<Boolean> deleteWatterRecord(@PathVariable("id") Long id){
 		return new ResponseEntity<Boolean>(this.watterRecordService.deleteWatterRecord(id),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
+	@ApiOperation(value = "Obtiene las páginas del Registro de Agua",notes = "Obtiene las páginas del registro mediante un usuario, paginación y filtro deseado")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "date", defaultValue ="") String date,
 			@RequestParam(name = "samplingpoint", defaultValue ="") String samplingpoint){
 		String cadena="";
@@ -80,6 +87,7 @@ public class WatterRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
+	@ApiOperation(value = "Obtiene una Lista del Registro de Agua",notes = "Muestra una lista del registro según un usuario, paginación y filtro deseado")
 	public ResponseEntity<List<WatterRecord>> getAllBy(@PathVariable("page") int page,@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "date", defaultValue ="") String date,
 			@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,@RequestParam(name = "samplingpoint", defaultValue ="") String samplingpoint){
 		String cadena="";

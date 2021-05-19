@@ -23,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.manuel.ApiProyectoFinal.enums.AscDesc;
 import com.manuel.ApiProyectoFinal.enums.SearchByMeatRecord;
+import com.manuel.ApiProyectoFinal.exceptions.RecordNotFoundException;
 import com.manuel.ApiProyectoFinal.models.MeatRecord;
 import com.manuel.ApiProyectoFinal.services.MeatRecordService;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/meatrecord")
@@ -45,26 +47,29 @@ public class MeatRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PostMapping()
+	@ApiOperation(value = "Crea un Registro de Carne",notes = "Crea un registro de carne devolviendo el registro creado con su id")
 	public ResponseEntity<MeatRecord> createMeatRecord(@Valid @RequestBody MeatRecord newMeatRecord){
-		
 		return new ResponseEntity<MeatRecord>(this.MeatRecordservice.createMeatRecord(newMeatRecord),new HttpHeaders(),HttpStatus.OK);	
 		
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@PutMapping()
-	public ResponseEntity<MeatRecord> updateMeatRecord(@Valid @RequestBody MeatRecord updateMeatRecoird){
+	@ApiOperation(value = "Actualiza un Registro de Carne",notes = "Actualiza un registro de carne devolviendo el registro actualizado. Lanza excepción si no se ha encontrado")
+	public ResponseEntity<MeatRecord> updateMeatRecord(@Valid @RequestBody MeatRecord updateMeatRecoird) throws RecordNotFoundException{
 		return new ResponseEntity<MeatRecord>(this.MeatRecordservice.updateMeatRecord(updateMeatRecoird),new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Elimina un Registo de Carne",notes = "Elimina un registro de carne mediante su id devolviendo TRUE si se ha eliminado y FALSE si no se ha encontrado")
 	public ResponseEntity<Boolean> deleteMeatrecord(@PathVariable("id") Long id){
 		return new ResponseEntity<Boolean>(this.MeatRecordservice.deleteMeatRecord(id),new HttpHeaders(),HttpStatus.OK); 
 	}
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getPages/{uid}/{size}")
+	@ApiOperation(value = "Obtiene número de páginas",notes = "Optiene el número de páginas de los Registros por Usuario, tamaño de páginas y filtro deseado")
 	public ResponseEntity<Integer> getPages(@PathVariable("uid") String uid,@PathVariable("size") int size, @RequestParam(name = "product", defaultValue ="") String product,
 			@RequestParam(name = "lote", defaultValue ="") String lote,@RequestParam(name = "supplier", defaultValue ="") String supplier,@RequestParam(name = "date", defaultValue ="") String date){
 		
@@ -90,6 +95,7 @@ public class MeatRecordController {
 	
 	@CrossOrigin(origins = "*",maxAge = 3600)
 	@GetMapping("/getBy/{uid}/{page}/{size}")
+	@ApiOperation(value = "Muestra una Lista de Registros de Carne",notes = "Muestra una lista de registros de carne con paginación mediante usuario y filtro deseado")
 	public ResponseEntity<List<MeatRecord>> getAllBy(@PathVariable("uid") String uid,@PathVariable("size") int size,@PathVariable("page") int page ,@RequestParam(name = "product", defaultValue = "") String product
 			,@RequestParam(name = "order",defaultValue = "ASCENDING") AscDesc order,@RequestParam(name = "supplier", defaultValue ="") String supplier,@RequestParam(name = "date", defaultValue ="") String date,
 			@RequestParam(name = "lote", defaultValue ="") String lote){

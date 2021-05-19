@@ -294,7 +294,7 @@ public class UserService {
 		if(userselected.isPresent()) {
 			return userselected.get();
 		}else {
-			throw new RecordNotFoundException("No User exist for given uid", uid);
+			return null;
 		}
 	}
 	
