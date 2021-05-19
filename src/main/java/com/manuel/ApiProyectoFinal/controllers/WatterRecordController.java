@@ -103,7 +103,7 @@ public class WatterRecordController {
 				pageable=PageRequest.of(page, size,Sort.by("date").ascending());
 			}else {
 				pageable=PageRequest.of(page, size,Sort.by("date").descending());
-			}
+			} 
 			
 		}else if(!samplingpoint.equals("")){
 			cadena=samplingpoint;
