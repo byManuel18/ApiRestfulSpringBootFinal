@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name="temperaturerecord")
 public class TemperatureRecord {
@@ -32,12 +35,14 @@ public class TemperatureRecord {
 	private Date date;
 	
 	@NotBlank
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(cascade= CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_appliance")
 	private Appliance appliance;
 	
 	@NotBlank
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="id_user")
 	private User user;
 	
