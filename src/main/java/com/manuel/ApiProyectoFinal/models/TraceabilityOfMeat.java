@@ -41,6 +41,7 @@ public class TraceabilityOfMeat {
 	private Date enddate;
 	
 	@NotBlank
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;
@@ -51,6 +52,7 @@ public class TraceabilityOfMeat {
 	private Signed signed;
 	
 	@OneToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="id_meatrecord")
 	private MeatRecord meatrecord; 
 	

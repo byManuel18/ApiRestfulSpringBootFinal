@@ -55,6 +55,7 @@ public class RawMaterialRecord {
 	private Date enddate;
 	
 	@NotBlank
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;

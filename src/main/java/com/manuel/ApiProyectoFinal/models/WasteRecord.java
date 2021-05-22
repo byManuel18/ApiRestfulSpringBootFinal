@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name="wasterecord")
 public class WasteRecord {
@@ -36,6 +39,7 @@ public class WasteRecord {
 	private double amount;
 	
 	@NotBlank
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;

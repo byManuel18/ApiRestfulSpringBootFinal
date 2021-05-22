@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name="appliance")
 public class Appliance {
@@ -26,6 +29,7 @@ public class Appliance {
 	private String name;
 	
 	@NotBlank
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@ManyToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
 	@JoinColumn(name="id_user")
 	private User user;
